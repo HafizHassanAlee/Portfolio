@@ -8,6 +8,8 @@
 <meta property="og:title" content="Hassan Ali — Python Full-Stack Developer">
 <meta property="og:description" content="Building software, exploring intelligence. Projects in FastAPI, JavaScript and more.">
 <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230e0f13'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='16' font-weight='700' text-anchor='middle' fill='%237c8cff'%3Eha%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -141,9 +143,18 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
 .rv{opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}
 .rv.in{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}.scroll{display:none}}
+#prog{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--ac),var(--ac2));transform:scaleX(0);transform-origin:left;z-index:30}
+dialog{background:var(--bg2);color:var(--fg);border:1px solid var(--line);border-radius:16px;max-width:560px;width:calc(100% - 2rem);padding:1.6rem}
+dialog::backdrop{background:rgba(0,0,0,.65)}dialog h3{font-size:1.5rem;margin-bottom:.8rem}dialog ul{color:var(--mut);padding-left:1.1rem}dialog .tags,dialog .pbtn{margin-top:1rem}
+.pong{position:relative;height:100%}.pong b{position:absolute;top:60px;width:6px;height:46px;border-radius:3px;background:var(--ac)}.pong b:first-child{left:18px}.pong b:nth-child(2){right:18px;background:var(--ac2)}
+.pong span{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--fg);animation:ball 2.6s linear infinite alternate}
+@keyframes ball{0%{left:30px;top:20px}50%{top:130px}100%{left:calc(100% - 40px);top:50px}}
+.grp{font-size:1.5rem;margin-top:3.5rem}
+#qc{margin:.5rem 0 0;font:400 .9rem/1.6 var(--mono);color:var(--fg);white-space:pre-wrap}
 </style>
 </head>
 <body>
+<div id="prog" aria-hidden="true"></div>
 <header>
  <div class="wrap bar">
   <a class="logo" href="#home" aria-label="Hassan Ali, home">ha<b>/</b>dev</a>
@@ -167,12 +178,13 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
  <canvas id="grid" aria-hidden="true"></canvas>
  <div class="wrap">
   <span class="status"><span class="dot"></span>Studying, building and learning in public</span>
-  <p class="hi">Hi, I’m Hassan Ali.</p>
+  <p class="hi">Hassan Ali — Python Full-Stack Developer and Computer Science Undergraduate.</p>
   <h1><span>Building Software.</span><span class="l2">Exploring Intelligence.</span><span class="l3">Creating What’s Next.</span></h1>
   <p class="lead">I’m a Computer Science undergraduate and Python Full-Stack Developer passionate about building practical software, exploring modern technologies, and moving toward the future of AI.</p>
   <div class="ctas">
-   <a class="btn pri" href="#projects">Explore my work</a>
-   <a class="btn" href="https://github.com/HafizHassanAlee" target="_blank" rel="noopener noreferrer">GitHub profile</a>
+   <a class="btn pri" href="#projects">View my projects</a>
+   <a class="btn" href="https://github.com/HafizHassanAlee" target="_blank" rel="noopener noreferrer">Explore GitHub</a>
+   <a class="btn" href="#contact">Contact me</a>
   </div>
  </div>
  <div class="scroll" aria-hidden="true"></div>
@@ -203,10 +215,15 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
  <h2 class="rv">Things I’ve actually built.</h2>
  <p class="lead rv">Every project links to its public repository. Descriptions stay within what the repositories show.</p>
  <div class="filters" role="group" aria-label="Filter projects">
-  <button data-f="all" aria-pressed="true">All</button><button data-f="backend" aria-pressed="false">Backend</button>
-  <button data-f="web" aria-pressed="false">Web</button><button data-f="learning" aria-pressed="false">Learning</button>
+  <button data-f="all" aria-pressed="true">All</button><button data-f="python" aria-pressed="false">Python</button>
+  <button data-f="backend" aria-pressed="false">Backend</button><button data-f="javascript" aria-pressed="false">JavaScript</button>
+  <button data-f="web" aria-pressed="false">Web applications</button><button data-f="games" aria-pressed="false">Games</button>
+  <button data-f="team" aria-pressed="false">Team projects</button>
  </div>
  <div class="projects" id="pgrid"></div>
+ <h3 class="grp">Learning projects</h3><p class="mut">Smaller projects where I practised fundamentals.</p>
+ <div class="projects" id="lgrid" style="margin-top:1.25rem"></div>
+ <p class="note" id="empty" role="status" hidden>No projects in this category yet. Try another filter.</p>
  <a class="btn more" href="https://github.com/HafizHassanAlee" target="_blank" rel="noopener noreferrer">View all projects on GitHub</a>
 </div></section>
 
@@ -222,15 +239,26 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
  </ol>
 </div></section>
 
+<section id="exploring"><div class="wrap">
+ <h2 class="rv">Currently exploring.</h2>
+ <div class="cards c4 rv">
+  <div class="card"><small>Backend</small><strong>Deeper FastAPI and API design</strong></div>
+  <div class="card"><small>Frontend</small><strong>Daily JavaScript practice</strong></div>
+  <div class="card"><small>Databases</small><strong>PostgreSQL and SQL</strong></div>
+  <div class="card"><small>Fundamentals</small><strong>C++ and problem solving</strong></div>
+  <div class="card"><small>Next</small><strong>AI and automation</strong></div>
+ </div>
+</div></section>
+
 <section id="rumiware"><div class="wrap rumi">
  <div class="rv">
   <h2>Working with the RumiWare team.</h2>
-  <p class="lead">I have contributed to software development as part of the RumiWare team, working on real software projects alongside other developers.</p>
+  <p class="lead">I contribute to software development as part of the RumiWare team, working on real projects alongside other developers. The main one is RumiWare SchoolOS, a modular school management platform.</p>
   <ul><li>Python Full-Stack Development</li><li>Backend development</li><li>Website development</li><li>UI/UX</li><li>Software projects</li></ul>
  </div>
  <div class="card rv" style="align-self:start">
   <small>RumiWare</small>
-  <p class="mut" style="margin-bottom:1.25rem">Visit the team’s website, source code and the school management product.</p>
+  <p class="mut" style="margin-bottom:1.25rem">SchoolOS is described in its repository as a controlled pilot candidate for fictional data or an authorised test environment. It is not approved for real-school production use.</p>
   <div class="pbtn" style="margin:0">
    <a class="btn pri" href="https://rumiware.com" target="_blank" rel="noopener noreferrer">Website</a>
    <a class="btn" href="https://github.com/Rumi-Ware/RumiWare" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -250,6 +278,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
   </form>
  </div>
  <div class="chips" id="chips"></div>
+ <div class="card rv" style="margin-top:2rem"><small>Optional challenge: what does this print?</small><pre id="qc"></pre>
+  <div class="chips" id="qo"></div><p class="note" id="qr" role="status"></p><button class="btn" id="qn" type="button">Next question</button></div>
 </div></section>
 
 <section id="contact"><div class="wrap contact">
@@ -270,10 +300,12 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
 
 <footer><div class="wrap"><span>© <span id="yr"></span> Hassan Ali. Built by hand, still learning.</span>
  <span><a href="https://github.com/HafizHassanAlee" target="_blank" rel="noopener noreferrer">GitHub</a></span></div></footer>
+<dialog id="dlg" aria-labelledby="dt"><div id="dbody"></div><div class="pbtn"><button class="btn" id="dx" type="button">Close</button></div></dialog>
 <button class="ico" id="top" aria-label="Back to top">↑</button>
 
 <script>
-/* ===== Edit contact details here ===== */
+/* ===== EDIT CONTACT DETAILS HERE (the only place needed) =====
+   email: "you@example.com"   linkedin: "https://www.linkedin.com/in/your-name" */
 const CONFIG={email:"",linkedin:"",github:"https://github.com/HafizHassanAlee"};
 /* ===================================== */
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -291,41 +323,75 @@ mb.onclick=()=>{const o=nav.classList.toggle('open');mb.setAttribute('aria-expan
 $$('nav a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');mb.setAttribute('aria-expanded',false)}));
 
 /* skills */
-const SK={Programming:[["Python","Working with"],["JavaScript","Practising"],["C++","Exploring"]],
+const SK={Programming:[["Python","Working with"],["JavaScript","Practising"],["C++","Learning"]],
  Backend:[["FastAPI","Working with"],["REST APIs","Working with"],["JWT authentication","Working with"],["Jinja2","Working with"]],
- Frontend:[["HTML","Working with"],["CSS","Working with"],["JavaScript","Practising"],["Responsive UI","Practising"]],
- Databases:[["PostgreSQL","Practising"]],
+ Frontend:[["HTML","Working with"],["CSS","Working with"],["JavaScript","Practising"],["Responsive web design","Practising"]],
+ Databases:[["PostgreSQL","Practising"],["JSON","Working with"]],
  Tools:[["Git","Working with"],["GitHub","Working with"],["VS Code","Working with"],["Vercel","Working with"]]};
 $('#skillgrid').innerHTML=Object.entries(SK).map(([k,v])=>`<div class="card rv"><h3>${k}</h3><ul>${v.map(([n,l])=>`<li><span>${n}</span><span class="tag ${l==='Working with'?'w':''}">${l}</span></li>`).join('')}</ul></div>`).join('');
 
 /* projects */
 const GH="https://github.com/HafizHassanAlee/";
-const P=[
- {n:"Student Management System",c:["backend","web"],r:GH+"student-management-fastapi",
-  d:"A FastAPI-based student management application with student login, authentication, dashboards, and administrative management features.",
-  t:["Python","FastAPI","Jinja2","HTML","CSS","JWT"],f:["Student login and authentication","Dashboards","Administrative management"],
-  s:`<i>@app</i>.post("/login")\n<i>def</i> login(form):\n    token = create_jwt(user)\n    <i>return</i> {"token": token}`},
- {n:"School Management System",c:["web"],r:GH+"School-Management-System",l:"https://rumiware-schoolos.vercel.app",
-  d:"A school management software project focused on organizing school-related workflows and management functionality, connected to the RumiWare team’s work.",
-  t:["RumiWare","Web app"],f:["School workflow management","Live product on Vercel"],
-  s:`<i>const</i> school = {\n  students: [],\n  classes: [],\n  staff: []\n}`},
- {n:"JavaScript Learning Journey",c:["learning","web"],r:GH+"JavaScript-Series",
-  d:"A continuously growing repository documenting my JavaScript learning journey through daily lessons, programming exercises, and practical projects.",
-  t:["JavaScript"],f:["Fundamentals","Functions and arrow functions","Arrays, objects and nested objects","Object methods and arrays of objects","Student Records Management System"],
-  s:`<i>const</i> add = (a, b) => a + b\nstudents.<i>map</i>(s => s.name)\n<i>// day after day</i>`},
- {n:"FastAPI Blogging Website",c:["backend"],r:GH+"Blogging-Website-using-fastAPI",
-  d:"A backend development project focused on building a blogging website using FastAPI.",
-  t:["Python","FastAPI"],f:["Backend-focused blogging project"],
-  s:`<i>@app</i>.get("/posts")\n<i>def</i> list_posts():\n    <i>return</i> posts`}];
-$('#pgrid').innerHTML=P.map(p=>`<article class="proj rv" data-c="${p.c.join(' ')}">
- <div class="shot" aria-hidden="true"><pre>${p.s}</pre></div>
- <div class="pb"><h3>${p.n}</h3><p class="mut">${p.d}</p>
- <div class="tags">${p.t.map(x=>`<span class="tag">${x}</span>`).join('')}</div>
- <ul>${p.f.map(x=>`<li>${x}</li>`).join('')}</ul>
- <div class="pbtn"><a class="btn" href="${p.r}" target="_blank" rel="noopener noreferrer">GitHub</a>${p.l?`<a class="btn pri" href="${p.l}" target="_blank" rel="noopener noreferrer">Live demo</a>`:''}</div></div></article>`).join('');
+const F=[
+ {n:"RumiWare SchoolOS",c:["python","backend","web","team"],r:GH+"School-Management-System",l:"https://rumiware-schoolos.vercel.app/",
+  d:"A modular school management platform with student, guardian and teacher portals, admissions, academic operations, attendance, examinations and finance modules.",
+  x:"I contributed to this as part of the RumiWare team. Its repository calls it a controlled pilot candidate, not approved for real-school production use.",
+  t:["Django","Python","PostgreSQL","Team project"],f:["Student, guardian and teacher portals","Admissions and academic operations","Attendance and examinations","Fees and finance"],
+  s:`<i>class</i> Enrollment(Model):\n  student = ForeignKey(...)\n  section = ForeignKey(...)\n  <i># role-scoped access</i>`},
+ {n:"Rumi Dental Care CMS",c:["python","backend","web"],r:GH+"Dental-Clinic-CMS",
+  d:"A full-stack dental clinic website and management platform with patient, clinical, financial and administrative workflows.",
+  t:["Python","FastAPI","PostgreSQL","SQLAlchemy","React","TypeScript","Tailwind CSS","Alembic"],f:["Patient, clinical, financial and administrative workflows"],
+  s:`<i>class</i> Patient(Base):\n  __tablename__ = "patients"\n  <i># migrations: Alembic</i>`},
+ {n:"Student Management System (FastAPI)",c:["python","backend","web"],r:GH+"student-management-fastapi",
+  d:"A FastAPI web application for managing student records, with separate student and admin areas.",
+  t:["Python","FastAPI","Jinja2","HTML","CSS","JWT","JSON"],f:["Student and admin login","Student and admin dashboards","Create, update and delete student records","JWT authentication in HTTP-only cookies"],
+  s:`<i>@app</i>.post("/login")\n<i>def</i> login(form):\n  set_cookie(token, httponly=True)`},
+ {n:"Pong: Neon Rally",c:["javascript","web","games"],r:GH+"Pong-Game",
+  d:"A browser Pong game with CPU opponents, local and online multiplayer, and a tournament mode.",
+  t:["HTML","CSS","JavaScript","Node.js"],f:["Single-player with CPU difficulty levels","Local and online multiplayer rooms","Tournament mode and power-ups","Sound effects, keyboard and mobile controls","Match history and personal bests"],s:null},
+ {n:"Student Management System (PostgreSQL)",c:["python","backend"],r:GH+"Student-Management-System-using-SQL",
+  d:"A command-line database learning project for managing student records in PostgreSQL.",
+  t:["Python","PostgreSQL","SQL","Psycopg 3"],f:["Create, read, update and delete records","Input validation","Parameterized SQL queries"],
+  s:`cur.execute(\n  "SELECT * FROM students WHERE id = %s",\n  (student_id,)\n)`},
+ {n:"JavaScript Learning Series",c:["javascript"],r:GH+"JavaScript-Series",
+  d:"My continuously growing JavaScript learning repository. I write and practise the code myself as I learn.",
+  t:["JavaScript"],f:["Daily learning progress and fundamentals","Functions and arrow functions","Arrays, objects and object methods","Arrays of objects","Practical console applications","Student Records Management System"],
+  s:`<i>const</i> add = (a, b) => a + b\nstudents.<i>filter</i>(s => s.active)`}];
+const Lr=[
+ {n:"Python Student Management System",c:["python"],r:GH+"STUDENT-MANAGEMENT-SYSTEM",
+  d:"A Python console program for managing student records saved in a local JSON file.",
+  t:["Python","JSON"],f:["Add student records","View and search records","Update and delete records","Input validation","JSON-based local storage"],
+  s:`<i>with</i> open("students.json") <i>as</i> f:\n  students = json.load(f)`},
+ {n:"FastAPI Blogging Website",c:["python","backend","web"],r:GH+"Blogging-Website-using-fastAPI",
+  d:"A backend-focused blogging website project built with FastAPI. See the repository for details.",
+  t:["Python","FastAPI"],f:["Built with FastAPI"],
+  s:`<i>@app</i>.get("/posts")\n<i>def</i> list_posts():\n  <i>return</i> posts`}];
+const ALL=F.concat(Lr);
+const card=(p,i)=>`<article class="proj rv" data-c="${p.c.join(' ')}"><div class="shot" aria-hidden="true">${p.s?`<pre>${p.s}</pre>`:'<div class="pong"><b></b><b></b><span></span></div>'}</div>
+ <div class="pb"><h3>${p.n}</h3><p class="mut">${p.d}</p><div class="tags">${p.t.map(x=>`<span class="tag">${x}</span>`).join('')}</div>
+ <div class="pbtn"><button class="btn" type="button" data-i="${i}" aria-haspopup="dialog">Details</button><a class="btn" href="${p.r}" target="_blank" rel="noopener noreferrer">GitHub</a>${p.l?`<a class="btn pri" href="${p.l}" target="_blank" rel="noopener noreferrer">Live demo</a>`:''}</div></div></article>`;
+$('#pgrid').innerHTML=F.map((p,i)=>card(p,i)).join('');
+$('#lgrid').innerHTML=Lr.map((p,i)=>card(p,i+F.length)).join('');
+const dlg=$('#dlg');
+$$('[data-i]').forEach(b=>b.onclick=()=>{const p=ALL[+b.dataset.i];
+ $('#dbody').innerHTML=`<h3 id="dt">${p.n}</h3><p class="mut">${p.d}</p>${p.x?`<p class="mut" style="margin-top:.8rem">${p.x}</p>`:''}<ul style="margin-top:1rem">${p.f.map(x=>`<li>${x}</li>`).join('')}</ul><div class="tags">${p.t.map(x=>`<span class="tag">${x}</span>`).join('')}</div>`;
+ dlg.showModal()});
+$('#dx').onclick=()=>dlg.close();
+dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
 $$('.filters button').forEach(b=>b.onclick=()=>{
- $$('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));
- $$('.proj').forEach(p=>p.hidden=!(b.dataset.f==='all'||p.dataset.c.split(' ').includes(b.dataset.f)))});
+ $$('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));let n=0;
+ $$('.proj').forEach(p=>{const ok=b.dataset.f==='all'||p.dataset.c.split(' ').includes(b.dataset.f);p.hidden=!ok;if(ok)n++});
+ $('#empty').hidden=n>0});
+
+/* challenge */
+const Q=[["console.log([1, 2, 3].map(n => n * 2))",["[2, 4, 6]","[1, 4, 9]","6"],0],
+ ['print(len({"a": 1, "b": 2, "a": 3}))',["3","2","1"],1],
+ ["console.log(typeof null)",["null","object","undefined"],1]];
+let qi=0;
+function showQ(){const q=Q[qi];$('#qc').textContent=q[0];$('#qr').textContent='';
+ $('#qo').innerHTML=q[1].map((o,i)=>`<button type="button" data-a="${i}">${esc(o)}</button>`).join('');
+ $$('#qo button').forEach(b=>b.onclick=()=>{$('#qr').textContent=+b.dataset.a===q[2]?'Correct.':'Not quite. The answer is '+q[1][q[2]]+'.'})}
+$('#qn').onclick=()=>{qi=(qi+1)%Q.length;showQ()};showQ();
 
 /* contact (configured in one place) */
 const L=$('#clinks'),li=(h,t,ok)=>`<li>${ok?`<a class="btn" href="${h}" target="_blank" rel="noopener noreferrer">${t}</a>`:`<span class="btn" aria-disabled="true">${t}</span>`}</li>`;
@@ -342,13 +408,14 @@ $('#cf').onsubmit=e=>{e.preventDefault();if(!CONFIG.email)return;const f=new For
 const out=$('#out'),ti=$('#ti');
 const a=(h,t)=>`<a href="${h}" target="_blank" rel="noopener noreferrer">${t||h}</a>`;
 const CMD={
- help:()=>"Commands: help, about, skills, projects, rumiware, github, contact, goal, clear",
+ help:()=>"Commands: help, about, skills, projects, journey, rumiware, github, contact, goal, clear",
  about:()=>"Hassan Ali. Computer Science undergraduate and Python Full-Stack Developer. Learning by building real projects.",
  skills:()=>Object.entries(SK).map(([k,v])=>k+": "+v.map(x=>x[0]).join(", ")).join("\n"),
  projects:()=>P.map(p=>"• "+p.n+"  "+a(p.r,"repo")).join("\n"),
  rumiware:()=>"Part of the RumiWare team. "+a("https://rumiware.com","rumiware.com")+" · "+a("https://github.com/Rumi-Ware/RumiWare","GitHub"),
  github:()=>a(CONFIG.github),
  contact:()=>CONFIG.email?"Email: "+esc(CONFIG.email):"No email is set yet. GitHub is the best way to reach me for now: "+a(CONFIG.github),
+ journey:()=>$$("#tl li").map((l,i)=>(i+1)+". "+l.textContent).join("\n"),
  goal:()=>"AI Engineer by 2030. Current step: Python, backend and JavaScript.",
  clear:()=>{out.innerHTML='';return null}};
 function run(c){c=c.trim().toLowerCase();if(!c)return;out.insertAdjacentHTML('beforeend',`<div><span class="cmd">$ </span>${esc(c)}</div>`);
@@ -371,7 +438,7 @@ function onScroll(){
  const r=tl.getBoundingClientRect(),mid=innerHeight*.6;
  const p=Math.max(0,Math.min(1,(mid-r.top)/r.height));fill.style.height=(p*(r.height-12))+'px';
  items.forEach(it=>it.classList.toggle('on',it.getBoundingClientRect().top<mid));
- top.classList.toggle('show',scrollY>700)}
+ top.classList.toggle('show',scrollY>700);const h=document.documentElement.scrollHeight-innerHeight;$('#prog').style.transform='scaleX('+(h>0?scrollY/h:0)+')'}
 addEventListener('scroll',onScroll,{passive:true});onScroll();
 top.onclick=()=>scrollTo({top:0,behavior:RM?'auto':'smooth'});
 

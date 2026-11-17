@@ -156,6 +156,13 @@ dialog::backdrop{background:rgba(0,0,0,.65)}dialog h3{font-size:1.5rem;margin-bo
 .portrait img{width:100%;height:100%;object-fit:contain;object-position:center bottom}
 .portrait.noimg img{display:none}
 .portrait.noimg::after{content:"HA";align-self:center;font:800 4rem var(--mono);color:var(--mut)}
+.rlogo{margin:0 0 1.5rem;width:88px;height:88px;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#14304a;display:grid;place-items:center}
+.rlogo img{width:100%;height:100%;object-fit:cover;display:block}
+.rlogo.noimg img{display:none}.rlogo.noimg::after{content:"R";font:800 2.5rem var(--mono);color:#1fb5b0}
+.rline{margin-top:1rem;font:500 1.15rem var(--sans);color:var(--ac)}
+.facts{margin:0 0 1.25rem}.facts div{padding:.6rem 0;border-bottom:1px solid var(--line)}
+.facts dt{font:400 .85rem var(--mono);color:var(--mut)}.facts dd{margin:.15rem 0 0;font-weight:600}
+.exp{margin:.6rem 0 0;padding-left:1.1rem;color:var(--mut)}
 </style>
 </head>
 <body>
@@ -263,18 +270,26 @@ dialog::backdrop{background:rgba(0,0,0,.65)}dialog h3{font-size:1.5rem;margin-bo
 
 <section id="rumiware"><div class="wrap rumi">
  <div class="rv">
+  <figure class="rlogo">
+   <!-- Upload the logo as rumiware-logo.jpeg in the same folder as index.html -->
+   <img src="rumiware-logo.jpeg" width="96" height="96" alt="RumiWare logo" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('noimg')">
+  </figure>
   <h2>Working with the RumiWare team.</h2>
-  <p class="lead">I contribute to software development as part of the RumiWare team, working on real projects alongside other developers. The main one is RumiWare SchoolOS, a modular school management platform.</p>
-  <ul><li>Python Full-Stack Development</li><li>Backend development</li><li>Website development</li><li>UI/UX</li><li>Software projects</li></ul>
+  <p class="rline">“Building Technology. Creating Possibilities.”</p>
+  <p class="lead">Proud to be part of RumiWare, a four-member software development team turning innovative ideas into practical digital solutions through collaboration, creativity, and technology.</p>
+  <p class="lead">RumiWare is a collaborative software development organization focused on building modern digital experiences and practical software solutions. The team combines development, creativity, and technology to turn ideas into functional digital products.</p>
+  <p class="lead">As a Python Full-Stack Developer and team member, I contribute to developing web applications, building backend functionality, working on frontend experiences, and collaborating with the team to deliver software solutions.</p>
  </div>
  <div class="card rv" style="align-self:start">
-  <small>RumiWare</small>
-  <p class="mut" style="margin-bottom:1.25rem">SchoolOS is described in its repository as a controlled pilot candidate for fictional data or an authorised test environment. It is not approved for real-school production use.</p>
-  <div class="pbtn" style="margin:0">
-   <a class="btn pri" href="https://rumiware.com" target="_blank" rel="noopener noreferrer">Website</a>
+  <dl class="facts"><div><dt>Role</dt><dd>Python Full-Stack Developer, team member</dd></div><div><dt>Team</dt><dd>Four-member software development team</dd></div></dl>
+  <small>Team expertise</small>
+  <ul class="exp"><li>Full-Stack Web Development</li><li>Python &amp; Backend Development</li><li>Frontend Development</li><li>Database Development</li><li>UI/UX Design</li><li>AI &amp; Automation</li></ul>
+  <div class="pbtn" style="margin:1.25rem 0 0">
+   <a class="btn pri" href="https://rumiware.com/" target="_blank" rel="noopener noreferrer">Website</a>
    <a class="btn" href="https://github.com/Rumi-Ware/RumiWare" target="_blank" rel="noopener noreferrer">GitHub</a>
-   <a class="btn" href="https://rumiware-schoolos.vercel.app" target="_blank" rel="noopener noreferrer">SchoolOS</a>
+   <a class="btn" href="https://rumiware-schoolos.vercel.app/" target="_blank" rel="noopener noreferrer">SchoolOS</a>
   </div>
+  <p class="mut" style="margin-top:1rem;font-size:.9rem">SchoolOS is described in its repository as a controlled pilot candidate for fictional data or an authorised test environment. It is not approved for real-school production use.</p>
  </div>
 </div></section>
 

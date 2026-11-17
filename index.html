@@ -53,7 +53,7 @@ nav a.l.on{background:var(--bg2);box-shadow:inset 0 -2px 0 var(--ac)}
  .cta-nav{display:none}}
 /* hero */
 .hero{position:relative;min-height:calc(100svh - 64px);display:flex;align-items:center;padding:4rem 0 5rem;overflow:hidden}
-#grid{position:absolute;inset:0;width:100%;height:100%;opacity:.55;pointer-events:none}
+#grid{position:fixed;inset:0;width:100%;height:100%;opacity:.5;pointer-events:none;z-index:-1}
 .hero .wrap{position:relative}
 .status{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--line);border-radius:99px;padding:.35rem .9rem;font-size:.9rem;color:var(--mut);background:var(--bg2)}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--ac);animation:pulse 2.4s ease-in-out infinite}
@@ -81,7 +81,7 @@ h1 .l3{background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background
 .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;margin-top:2.5rem}
 .skills h3{font-size:1.15rem;margin-bottom:1rem}
 .skills ul{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
-.skills li{display:flex;justify-content:space-between;gap:.5rem;align-items:center;padding:.5rem .7rem;border-radius:8px;border:1px solid transparent;transition:border-color .2s,background .2s}
+.skills li{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.25rem .5rem;align-items:center;padding:.5rem .7rem;border-radius:8px;border:1px solid transparent;transition:border-color .2s,background .2s}
 .skills li:hover{border-color:var(--line);background:var(--bg)}
 .tag{font:400 .78rem var(--mono);color:var(--mut);border:1px solid var(--line);border-radius:99px;padding:.1rem .55rem;white-space:nowrap}
 .tag.w{color:var(--ac);border-color:var(--ac)}
@@ -156,7 +156,7 @@ dialog::backdrop{background:rgba(0,0,0,.65)}dialog h3{font-size:1.5rem;margin-bo
 .portrait img{width:100%;height:100%;object-fit:contain;object-position:center bottom}
 .portrait.noimg img{display:none}
 .portrait.noimg::after{content:"HA";align-self:center;font:800 4rem var(--mono);color:var(--mut)}
-.rlogo{margin:0 0 1.75rem;width:clamp(128px,24vw,184px);aspect-ratio:1/1;border-radius:30px;overflow:hidden;border:1px solid var(--line);background:#14304a;display:grid;place-items:center}
+.rlogo{margin:0 0 1.75rem;width:clamp(144px,28vw,216px);aspect-ratio:1/1;border-radius:30px;overflow:hidden;border:1px solid var(--line);background:#14304a;display:grid;place-items:center}
 .rlogo img{width:100%;height:100%;object-fit:cover;display:block}
 .rlogo.noimg img{display:none}.rlogo.noimg::after{content:"R";font:800 4.5rem var(--mono);color:#1fb5b0}
 .rline{margin-top:1rem;font:500 1.15rem var(--sans);color:var(--ac)}
@@ -164,12 +164,17 @@ dialog::backdrop{background:rgba(0,0,0,.65)}dialog h3{font-size:1.5rem;margin-bo
 .facts dt{font:400 .85rem var(--mono);color:var(--mut)}.facts dd{margin:.15rem 0 0;font-weight:600}
 .exp{margin:.6rem 0 0;padding-left:1.1rem;color:var(--mut)}
 #spot{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .4s;
- background:radial-gradient(520px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--ac) 16%,transparent),transparent 65%)}
+ background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--ac) 9%,transparent),transparent 70%)}
 #spot.on{opacity:1}
+.card,.proj{position:relative}
+.card::before,.proj::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;
+ background:radial-gradient(220px circle at var(--cx,50%) var(--cy,50%),color-mix(in srgb,var(--ac) 12%,transparent),transparent 70%)}
+.card:hover::before,.proj:hover::before{opacity:1}
 </style>
 </head>
 <body>
 <div id="prog" aria-hidden="true"></div>
+<canvas id="grid" aria-hidden="true"></canvas>
 <div id="spot" aria-hidden="true"></div>
 <header>
  <div class="wrap bar">
@@ -191,7 +196,6 @@ dialog::backdrop{background:rgba(0,0,0,.65)}dialog h3{font-size:1.5rem;margin-bo
 
 <main>
 <section class="hero" id="home">
- <canvas id="grid" aria-hidden="true"></canvas>
  <div class="wrap">
   <span class="status"><span class="dot"></span>Studying, building and learning in public</span>
   <p class="hi">Hassan Ali — Python Full-Stack Developer and Computer Science Undergraduate.</p>
@@ -276,7 +280,7 @@ dialog::backdrop{background:rgba(0,0,0,.65)}dialog h3{font-size:1.5rem;margin-bo
  <div class="rv">
   <figure class="rlogo">
    <!-- Upload the logo as rumiware-logo.jpeg in the same folder as index.html -->
-   <img src="rumiware-logo.jpeg" width="184" height="184" alt="RumiWare logo" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('noimg')">
+   <img src="rumiware-logo.jpeg" width="216" height="216" alt="RumiWare logo" loading="lazy" decoding="async" onerror="this.parentElement.classList.add('noimg')">
   </figure>
   <h2>Working with the RumiWare team.</h2>
   <p class="rline">“Building Technology. Creating Possibilities.”</p>
@@ -329,19 +333,20 @@ dialog::backdrop{background:rgba(0,0,0,.65)}dialog h3{font-size:1.5rem;margin-bo
 </main>
 
 <footer><div class="wrap"><span>© <span id="yr"></span> Hassan Ali. Built by hand, still learning.</span>
- <span><a href="https://github.com/HafizHassanAlee" target="_blank" rel="noopener noreferrer">GitHub</a></span></div></footer>
+ <span><a href="https://github.com/HafizHassanAlee" target="_blank" rel="noopener noreferrer">GitHub</a> · <a id="fl" href="#contact">LinkedIn</a></span></div></footer>
 <dialog id="dlg" aria-labelledby="dt"><div id="dbody"></div><div class="pbtn"><button class="btn" id="dx" type="button">Close</button></div></dialog>
 <button class="ico" id="top" aria-label="Back to top">↑</button>
 
 <script>
 /* ===== EDIT CONTACT DETAILS HERE (the only place needed) =====
    email: "you@example.com"   linkedin: "https://www.linkedin.com/in/your-name" */
-const CONFIG={email:"",linkedin:"",github:"https://github.com/HafizHassanAlee"};
+const CONFIG={email:"",linkedin:"https://www.linkedin.com/feed/",github:"https://github.com/HafizHassanAlee"};
 /* ===================================== */
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const esc=t=>t.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 $('#yr').textContent=new Date().getFullYear();
+if(CONFIG.linkedin){const fl=$('#fl');fl.href=CONFIG.linkedin;fl.target='_blank';fl.rel='noopener noreferrer'}else $('#fl').remove();
 
 /* theme */
 try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
@@ -444,7 +449,7 @@ const CMD={
  projects:()=>ALL.map(p=>"• "+p.n+"  "+a(p.r,"repo")).join("\n"),
  rumiware:()=>"Part of the RumiWare team. "+a("https://rumiware.com","rumiware.com")+" · "+a("https://github.com/Rumi-Ware/RumiWare","GitHub"),
  github:()=>a(CONFIG.github),
- contact:()=>CONFIG.email?"Email: "+esc(CONFIG.email):"No email is set yet. GitHub is the best way to reach me for now: "+a(CONFIG.github),
+ contact:()=>(CONFIG.email?"Email: "+esc(CONFIG.email)+"\n":"")+(CONFIG.linkedin?"LinkedIn: "+a(CONFIG.linkedin)+"\n":"")+"GitHub: "+a(CONFIG.github),
  journey:()=>$$("#tl li").map((l,i)=>(i+1)+". "+l.textContent).join("\n"),
  goal:()=>"AI Engineer by 2030. Current step: Python, backend and JavaScript.",
  clear:()=>{out.innerHTML='';return null}};
@@ -477,10 +482,11 @@ const FINE=matchMedia('(pointer: fine)').matches&&!RM;
 let mx=-9999,my=-9999,sx=-9999,sy=-9999;
 if(FINE){const sp=$('#spot');let q=0;
  addEventListener('pointermove',e=>{if(e.pointerType==='touch')return;mx=e.clientX;my=e.clientY;sp.classList.add('on');
+  const cd=e.target.closest&&e.target.closest('.card,.proj');if(cd){const b=cd.getBoundingClientRect();cd.style.setProperty('--cx',(mx-b.left)+'px');cd.style.setProperty('--cy',(my-b.top)+'px')}
   if(!q){q=requestAnimationFrame(()=>{q=0;sp.style.setProperty('--mx',mx+'px');sp.style.setProperty('--my',my+'px')})}},{passive:true});
  document.addEventListener('pointerleave',()=>{mx=my=-9999;sp.classList.remove('on')})}
 function draw(t){
- const cs=getComputedStyle(document.documentElement),c=cs.getPropertyValue('--ac').trim(),m=cs.getPropertyValue('--line').trim(),g=44,R=170;
+ const cs=getComputedStyle(document.documentElement),c=cs.getPropertyValue('--ac').trim(),m=cs.getPropertyValue('--line').trim(),g=44,R=120;
  cx.clearRect(0,0,W,H);
  if(FINE){if(sx<-9000){sx=mx;sy=my}else{sx+=(mx-sx)*.14;sy+=(my-sy)*.14}}
  const r=cv.getBoundingClientRect(),px=sx-r.left,py=sy-r.top;
@@ -488,12 +494,12 @@ function draw(t){
   const w=Math.sin(x*.012+t*.0006)+Math.cos(y*.014-t*.0005);
   let X=x,Y=y,rad=w>1.55?2:1.2,col=w>1.55?c:m,al=.9;
   if(FINE){const dx=x-px,dy=y-py,d=Math.hypot(dx,dy);
-   if(d<R&&d>0){const k=1-d/R;X+=dx/d*k*16;Y+=dy/d*k*16;rad+=k*2.6;col=c;al=.35+k*.65}}
+   if(d<R&&d>0){const k=1-d/R;X+=dx/d*k*9;Y+=dy/d*k*9;rad+=k*1.8;col=c;al=.35+k*.65}}
   cx.fillStyle=col;cx.globalAlpha=al;cx.beginPath();cx.arc(X,Y,rad,0,7);cx.fill()}
  cx.globalAlpha=1;
  if(!RM)raf=requestAnimationFrame(draw)}
 size();draw(0);addEventListener('resize',()=>{size();if(RM)draw(0)});
-new IntersectionObserver(e=>{if(!RM){cancelAnimationFrame(raf);if(e[0].isIntersecting)raf=requestAnimationFrame(draw)}}).observe(cv);
+document.addEventListener('visibilitychange',()=>{if(!RM){cancelAnimationFrame(raf);if(!document.hidden)raf=requestAnimationFrame(draw)}});
 </script>
 <script>
 /* Scroll reveal: progressive enhancement. Content is visible by default; it is only

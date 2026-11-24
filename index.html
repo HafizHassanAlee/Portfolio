@@ -107,7 +107,15 @@ footer p{opacity:.75;max-width:42ch;margin-top:.6rem}footer ul{list-style:none;m
 footer .logo i{background:var(--ac);color:#06120a}.copy{margin-top:2.5rem;padding-top:1.25rem;border-top:1px solid var(--line);font-size:.88rem;opacity:.7}
 #prog{position:fixed;top:0;left:0;right:0;height:3px;background:var(--ac);transform:scaleX(0);transform-origin:left;z-index:40}
 #top{position:fixed;right:1.25rem;bottom:calc(1.25rem + env(safe-area-inset-bottom,0px));opacity:0;pointer-events:none;transition:opacity .25s;z-index:25;box-shadow:var(--sh)}#top.show{opacity:1;pointer-events:auto}
-.rv{transition:opacity .7s,transform .7s cubic-bezier(.2,.7,.2,1)}.js-r .rv:not(.in){opacity:0;transform:translateY(22px)}
+.rv{transition:opacity .7s,transform .7s cubic-bezier(.2,.7,.2,1)}
+.card.tilt{transition:opacity .7s,transform .15s ease-out,border-color .25s;will-change:transform}
+/* Glassmorphism: header, hero chips, About stats, achievements, contact form */
+:root{--glass:rgba(255,255,255,.55);--glass-b:rgba(20,40,28,.1);--glow:rgba(22,163,74,.16)}
+:root[data-theme="dark"]{--glass:rgba(255,255,255,.05);--glass-b:rgba(255,255,255,.14);--glow:rgba(74,222,128,.15)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--glass:rgba(255,255,255,.05);--glass-b:rgba(255,255,255,.14);--glow:rgba(74,222,128,.15)}}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(620px 420px at 12% 22%,var(--glow),transparent 70%),radial-gradient(520px 420px at 88% 68%,var(--glow),transparent 70%)}
+.stat,.ach .card,#cf,.chip{background:var(--glass);border-color:var(--glass-b);-webkit-backdrop-filter:blur(16px) saturate(150%);backdrop-filter:blur(16px) saturate(150%);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),var(--sh)}
+header.top{background:color-mix(in srgb,var(--bg) 55%,transparent);-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%)}.js-r .rv:not(.in){opacity:0;transform:translateY(22px)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -227,6 +235,11 @@ const P=[
 {n:"FastAPI Blogging Website",c:"python",r:GH+"Blogging-Website-using-fastAPI",d:"A backend-focused blogging website project built with FastAPI. See the repository for details.",t:["Python","FastAPI"],s:`<i>@app</i>.get("/posts")\n<i>def</i> list_posts():\n  <i>return</i> posts`}];
 $('#pg').innerHTML=P.map(p=>`<article class="card proj rv" data-c="${p.c}"><div class="shot" aria-hidden="true"><pre>${p.s}</pre></div><div class="pb"><h3>${p.n}</h3><p>${p.d}</p><div class="bd">${p.t.map(x=>`<span class="badge">${x}</span>`).join('')}</div><div class="pbtn"><a class="btn" href="${p.r}" target="_blank" rel="noopener noreferrer">GitHub</a>${p.l?`<a class="btn pri" href="${p.l}" target="_blank" rel="noopener noreferrer">Live demo</a>`:''}</div></div></article>`).join('');
 $$('.filters button').forEach(b=>b.onclick=()=>{$$('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));$$('.proj').forEach(p=>{p.hidden=!(b.dataset.f==='all'||p.dataset.c.split(' ').includes(b.dataset.f))})});
+/* 3D tilt: only on project cards and the About stat cards */
+if(matchMedia('(hover:hover)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches){$$('.proj,.stat').forEach(el=>{el.classList.add('tilt');
+ el.addEventListener('mouseenter',()=>{el.style.transitionDelay='0ms'});
+ el.addEventListener('mousemove',e=>{const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform=`perspective(800px) rotateX(${(-y*10).toFixed(2)}deg) rotateY(${(x*10).toFixed(2)}deg) scale(1.02)`});
+ el.addEventListener('mouseleave',()=>{el.style.transform=''})})}
 if(CONFIG.email){$('#em').innerHTML=`<a class="btn" href="mailto:${CONFIG.email}">${CONFIG.email}</a>`;$('#cn').textContent="This opens your email app with the message filled in."}
 else{$('#em').innerHTML='<span class="btn" aria-disabled="true" style="opacity:.55">Email (not added yet)</span>';$('#send').disabled=true;$('#cn').textContent="The form is off until an email address is set in CONFIG. It opens your email app; it doesn’t send messages itself."}
 $('#cf').onsubmit=e=>{e.preventDefault();if(!CONFIG.email)return;const f=new FormData(e.target);location.href=`mailto:${CONFIG.email}?subject=${encodeURIComponent(f.get('s'))}&body=${encodeURIComponent(f.get('m')+'\n\n— '+f.get('n')+' ('+f.get('e')+')')}`};

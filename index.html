@@ -47,6 +47,9 @@ nav a.l:hover{color:var(--fg)}nav a.l.on{color:var(--ac2);background:var(--soft)
 @media(max-width:900px){.hgrid{grid-template-columns:1fr}.hvis{order:-1;max-width:340px;margin:0 auto}}
 .hello{font:500 1rem var(--mono);color:var(--ac2)}
 h1{font-size:clamp(2.5rem,6.5vw,4.5rem);font-weight:800;letter-spacing:-.04em;margin:.4rem 0 .6rem}
+.w{display:inline-block;white-space:nowrap}
+.ch{display:inline-block;cursor:default;transition:transform .2s cubic-bezier(.2,.7,.2,1),color .2s}
+.ch:hover{color:var(--ac);transform:scale(1.22) translateY(-2px)}
 .role{font-size:clamp(1.2rem,2.6vw,1.6rem);font-weight:700;color:var(--ac2)}
 .tagl{margin-top:.5rem;color:var(--mut);font-weight:500}
 .intro{margin-top:1.25rem;max-width:56ch;color:var(--mut)}
@@ -204,6 +207,7 @@ footer .logo i{background:var(--ac);color:#06120a}.copy{margin-top:2.5rem;paddin
 const CONFIG={email:"",cv:""};
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 $('#yr').textContent=new Date().getFullYear();
+(function(){const h=$('h1'),t=h.textContent.trim();h.setAttribute('aria-label',t);h.innerHTML=t.split(' ').map(w=>`<span class="w" aria-hidden="true">${[...w].map(c=>`<span class="ch">${c}</span>`).join('')}</span>`).join(' ')})();
 try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
 $('#theme').onclick=()=>{const d=document.documentElement,n=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}};
 const nav=$('#nav'),mb=$('#menu');mb.onclick=()=>{mb.setAttribute('aria-expanded',nav.classList.toggle('open'))};

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Muhammad Hassan Ali — Aspiring AI/ML Engineer</title>
+<meta name="description" content="Muhammad Hassan Ali is a Computer Science student, Python and full-stack developer building practical software and working toward becoming an AI/ML engineer.">
+<meta property="og:title" content="Muhammad Hassan Ali — Aspiring AI/ML Engineer">
+<meta property="og:description" content="Python and full-stack projects in FastAPI and JavaScript, and a path toward AI engineering.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2316a34a'/%3E%3Ctext x='16' y='22' font-family='monospace' font-size='18' font-weight='700' text-anchor='middle' fill='white'%3EH%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fbfcfb;--bg2:#fff;--tint:#f1f7f3;--fg:#1c2420;--mut:#5b6760;--line:#e2e9e4;--ac:#16a34a;--ac2:#15803d;--soft:#dcf5e5;--on:#fff;--sh:0 1px 2px rgba(20,40,28,.05),0 10px 30px -14px rgba(20,40,28,.14);--sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1511;--bg2:#141d18;--tint:#111a15;--fg:#eaf1ec;--mut:#9baba1;--line:#233029;--ac:#4ade80;--ac2:#22c55e;--soft:#14301f;--on:#06120a;--sh:none;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1511;--bg2:#141d18;--tint:#111a15;--fg:#eaf1ec;--mut:#9baba1;--line:#233029;--ac:#4ade80;--ac2:#22c55e;--soft:#14301f;--on:#06120a;--sh:none;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(76px + env(safe-area-inset-top,0px))}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 1rem/1.7 var(--sans);overflow-x:hidden}
+a{color:inherit}:focus-visible{outline:2px solid var(--ac);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1120px,100% - 2.5rem);margin-inline:auto}
+section{padding:5.5rem 0}.alt{background:var(--tint)}
+h1,h2,h3{margin:0;line-height:1.1;letter-spacing:-.025em}
+h2{font-size:clamp(1.9rem,4.5vw,2.75rem);font-weight:800}
+p{margin:0}.mut{color:var(--mut)}
+.eyebrow{display:inline-block;font:500 .78rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ac2);background:var(--soft);padding:.3rem .7rem;border-radius:99px;margin-bottom:1rem}
+.sub{max-width:60ch;margin-top:.9rem;color:var(--mut)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:46px;padding:0 1.35rem;border-radius:12px;border:1px solid var(--line);background:var(--bg2);color:var(--fg);font:600 .95rem var(--sans);text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s,background .2s}
+.btn:hover{transform:translateY(-2px);border-color:var(--ac);box-shadow:var(--sh)}
+.btn.pri{background:var(--ac2);border-color:var(--ac2);color:#fff}.btn.pri:hover{background:var(--ac);border-color:var(--ac)}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:68px;gap:1rem}
+.logo{display:flex;align-items:center;gap:.6rem;font-weight:800;font-size:1.1rem;text-decoration:none;letter-spacing:-.02em}
+.logo i{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--ac2);color:#fff;font:700 1rem var(--mono);font-style:normal}
+nav ul{display:flex;gap:.15rem;list-style:none;margin:0;padding:0}
+nav a.l{display:block;padding:.5rem .8rem;border-radius:8px;text-decoration:none;color:var(--mut);font-size:.92rem;font-weight:500}
+nav a.l:hover{color:var(--fg)}nav a.l.on{color:var(--ac2);background:var(--soft)}
+.tools{display:flex;gap:.5rem;align-items:center}
+.ico{width:44px;height:44px;border-radius:12px;border:1px solid var(--line);background:var(--bg2);color:var(--fg);cursor:pointer;font-size:1.05rem}
+#menu{display:none}
+@media(max-width:940px){#menu{display:inline-block}nav{position:absolute;left:0;right:0;top:68px;background:var(--bg);border-bottom:1px solid var(--line);display:none;padding:.75rem 1.25rem 1.25rem}nav.open{display:block}nav ul{flex-direction:column}nav a.l{padding:.85rem}}
+.hero{position:relative;padding:4.5rem 0 5.5rem;overflow:hidden;background:radial-gradient(60% 55% at 85% 20%,var(--soft),transparent 70%)}
+.hero::before{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--line) 1px,transparent 1.2px);background-size:26px 26px;mask-image:linear-gradient(90deg,transparent 35%,#000);-webkit-mask-image:linear-gradient(90deg,transparent 35%,#000);opacity:.8;pointer-events:none}
+.hgrid{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+@media(max-width:900px){.hgrid{grid-template-columns:1fr}.hvis{order:-1;max-width:340px;margin:0 auto}}
+.hello{font:500 1rem var(--mono);color:var(--ac2)}
+h1{font-size:clamp(2.5rem,6.5vw,4.5rem);font-weight:800;letter-spacing:-.04em;margin:.4rem 0 .6rem}
+.role{font-size:clamp(1.2rem,2.6vw,1.6rem);font-weight:700;color:var(--ac2)}
+.tagl{margin-top:.5rem;color:var(--mut);font-weight:500}
+.intro{margin-top:1.25rem;max-width:56ch;color:var(--mut)}
+.ctas,.soc{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem}.soc{margin-top:1.25rem}
+.hvis{position:relative}
+.portrait{position:relative;margin:0;aspect-ratio:1/1;border-radius:32px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(160deg,var(--soft),var(--bg2));box-shadow:var(--sh);display:grid;place-items:end center}
+.portrait img{width:100%;height:100%;object-fit:contain;object-position:center bottom}.portrait.noimg img{display:none}.portrait.noimg::after{content:"HA";align-self:center;font:800 4.5rem var(--mono);color:var(--ac)}
+.chip{position:absolute;display:flex;align-items:center;gap:.45rem;padding:.45rem .8rem;border-radius:99px;background:var(--bg2);border:1px solid var(--line);box-shadow:var(--sh);font:500 .82rem var(--mono);animation:fl 5s ease-in-out infinite}
+.chip b{width:8px;height:8px;border-radius:50%;background:var(--ac)}
+.c1{top:6%;left:-8%}.c2{top:38%;right:-8%;animation-delay:-1.5s}.c3{bottom:10%;left:-6%;animation-delay:-3s}
+@keyframes fl{50%{transform:translateY(-8px)}}
+.grid2{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;align-items:start}
+@media(max-width:860px){.grid2{grid-template-columns:1fr;gap:2rem}}
+.about p+p{margin-top:1rem}.about p{color:var(--mut)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:1.4rem;box-shadow:var(--sh);transition:transform .25s,border-color .25s}
+.card:hover{transform:translateY(-4px);border-color:var(--ac)}
+.stat strong{display:block;font-size:2.2rem;font-weight:800;letter-spacing:-.03em;color:var(--ac2);line-height:1}.stat span{display:block;margin-top:.4rem;font-size:.88rem;color:var(--mut)}
+.sk{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin-top:2.5rem}
+.sk h3{font-size:1.05rem;margin-bottom:1rem}.bd{display:flex;flex-wrap:wrap;gap:.5rem}
+.badge{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .75rem;border-radius:99px;background:var(--tint);border:1px solid var(--line);font:500 .82rem var(--mono)}
+.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--ac)}.badge.l{background:var(--soft);color:var(--ac2)}
+.tl{list-style:none;margin:2.5rem 0 0;padding:0 0 0 2rem;position:relative;max-width:760px}
+.tl::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.tl li{position:relative;padding-bottom:1.25rem}
+.tl li::before{content:"";position:absolute;left:-2rem;top:1.5rem;width:16px;height:16px;border-radius:50%;background:var(--bg);border:3px solid var(--ac)}
+.tl h3{font-size:1.1rem}.tl small{display:block;font:500 .8rem var(--mono);color:var(--ac2);margin:.15rem 0 .5rem}.tl .bd{margin-top:.8rem}
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2rem}
+.filters button{min-height:42px;padding:0 1.1rem;border-radius:99px;border:1px solid var(--line);background:var(--bg2);color:var(--mut);font:600 .88rem var(--sans);cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--ac2);border-color:var(--ac2);color:#fff}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:1.25rem;margin-top:1.5rem}
+.proj{display:flex;flex-direction:column;padding:0;overflow:hidden}.proj[hidden]{display:none}
+.shot{height:150px;background:linear-gradient(135deg,var(--soft),var(--tint));border-bottom:1px solid var(--line);padding:1rem 1.2rem;overflow:hidden;position:relative}
+.shot::before{content:"";position:absolute;top:.8rem;right:1rem;width:40px;height:8px;background:radial-gradient(circle,var(--ac) 3px,transparent 3.5px) 0 0/14px 8px}
+.shot pre{margin:1.2rem 0 0;font:400 .78rem/1.7 var(--mono);color:var(--mut)}.shot i{color:var(--ac2);font-style:normal;font-weight:500}
+.pb{padding:1.3rem;display:flex;flex-direction:column;gap:.85rem;flex:1}.pb h3{font-size:1.2rem}.pb p{color:var(--mut);font-size:.94rem}
+.pbtn{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:auto;padding-top:.4rem}.pbtn .btn{min-height:40px;padding:0 1rem;font-size:.88rem}
+.ach{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:2.5rem}
+.ach .card span{display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:var(--soft);color:var(--ac2);font-size:1.2rem;margin-bottom:.9rem}
+.ach h3{font-size:1.05rem}.ach p{margin-top:.4rem;color:var(--mut);font-size:.92rem}
+.rumi{display:grid;grid-template-columns:auto 1fr;gap:2.5rem;align-items:center;padding:2.2rem}
+@media(max-width:760px){.rumi{grid-template-columns:1fr;gap:1.5rem;padding:1.5rem}}
+.rlogo{margin:0;width:150px;aspect-ratio:1/1;border-radius:28px;overflow:hidden;border:1px solid var(--line);background:#14304a;display:grid;place-items:center}
+.rlogo img{width:100%;height:100%;object-fit:cover}.rlogo.noimg img{display:none}.rlogo.noimg::after{content:"R";font:800 3.5rem var(--mono);color:#1fb5b0}
+.rumi h2{font-size:clamp(1.6rem,3.4vw,2.2rem)}.quote{margin-top:.5rem;font-weight:600;color:var(--ac2)}.rumi p.mut{margin-top:.8rem}
+.note{font-size:.88rem;color:var(--mut)}
+.contact{display:grid;grid-template-columns:1fr 1.05fr;gap:3rem}@media(max-width:860px){.contact{grid-template-columns:1fr}}
+.links{list-style:none;margin:1.75rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.6rem}
+form{display:grid;gap:.9rem;padding:1.6rem}label{display:grid;gap:.35rem;font-size:.88rem;font-weight:600}
+input,textarea{width:100%;padding:.8rem 1rem;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:400 1rem var(--sans)}textarea{min-height:130px;resize:vertical}
+input:focus,textarea:focus{outline:2px solid var(--ac);border-color:transparent}
+footer{background:var(--fg);color:var(--bg);padding:3.5rem 0 2rem}
+footer .top2{display:flex;flex-wrap:wrap;justify-content:space-between;gap:2rem}
+footer p{opacity:.75;max-width:42ch;margin-top:.6rem}footer ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:.4rem 1.2rem}footer a{text-decoration:none;opacity:.85}footer a:hover{opacity:1;color:var(--ac)}
+footer .logo i{background:var(--ac);color:#06120a}.copy{margin-top:2.5rem;padding-top:1.25rem;border-top:1px solid color-mix(in srgb,var(--bg) 22%,transparent);font-size:.88rem;opacity:.7}
+#prog{position:fixed;top:0;left:0;right:0;height:3px;background:var(--ac);transform:scaleX(0);transform-origin:left;z-index:40}
+#top{position:fixed;right:1.25rem;bottom:calc(1.25rem + env(safe-area-inset-bottom,0px));opacity:0;pointer-events:none;transition:opacity .25s;z-index:25;box-shadow:var(--sh)}#top.show{opacity:1;pointer-events:auto}
+.rv{transition:opacity .7s,transform .7s cubic-bezier(.2,.7,.2,1)}.js-r .rv:not(.in){opacity:0;transform:translateY(22px)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="prog" aria-hidden="true"></div>
+<header class="top"><div class="wrap bar">
+ <a class="logo" href="#home" aria-label="Hassan Ali, home"><i>H</i>Hassan Ali</a>
+ <nav id="nav" aria-label="Main"><ul>
+  <li><a class="l" href="#home">Home</a></li><li><a class="l" href="#about">About</a></li><li><a class="l" href="#skills">Skills</a></li><li><a class="l" href="#experience">Experience</a></li>
+  <li><a class="l" href="#projects">Projects</a></li><li><a class="l" href="#achievements">Achievements</a></li><li><a class="l" href="#contact">Contact</a></li></ul></nav>
+ <div class="tools"><a class="btn pri" id="cv" href="#" hidden download>Download CV</a><button class="ico" id="theme" aria-label="Switch theme">◐</button><button class="ico" id="menu" aria-label="Open menu" aria-expanded="false" aria-controls="nav">☰</button></div>
+</div></header>
+<main>
+<section class="hero" id="home"><div class="wrap hgrid">
+ <div>
+  <p class="hello">Hello, I’m</p><h1>Muhammad Hassan Ali</h1><p class="role">Aspiring AI/ML Engineer</p>
+  <p class="tagl">Computer Science Student | Python Developer | Full Stack Developer</p>
+  <p class="intro">I’m fascinated by how artificial intelligence turns data into useful decisions. I build practical software with Python, FastAPI and JavaScript, and I’m steadily growing toward AI engineering by solving real problems with real projects.</p>
+  <div class="ctas"><a class="btn pri" href="#projects">Explore My Work</a><a class="btn" href="#contact">Contact Me</a></div>
+  <div class="soc"><a class="btn" href="https://github.com/HafizHassanAlee" target="_blank" rel="noopener noreferrer">GitHub</a><a class="btn" href="https://www.linkedin.com/in/hassan-alee/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
+ </div>
+ <div class="hvis">
+  <figure class="portrait"><img src="hassan-removebg-preview.png" width="500" height="500" alt="Portrait of Muhammad Hassan Ali" onerror="this.parentElement.classList.add('noimg')"></figure>
+  <span class="chip c1"><b></b>Python</span><span class="chip c2"><b></b>FastAPI</span><span class="chip c3"><b></b>AI / ML</span>
+ </div>
+</div></section>
+
+<section id="about" class="alt"><div class="wrap grid2 about">
+ <div class="rv"><span class="eyebrow">About me</span><h2>Learning by building real software.</h2>
+  <p style="margin-top:1.25rem">I’m a Computer Science undergraduate. My journey started with programming fundamentals and grew into Python backend development, APIs, databases and JavaScript.</p>
+  <p>I’m especially interested in AI/ML engineering and backend development, and I enjoy experimenting with automation and practical AI applications, including running local language models with Ollama.</p>
+  <p>My long-term ambition is to become a skilled AI Engineer who builds technology that is genuinely useful.</p></div>
+ <div class="stats rv">
+  <div class="card stat"><strong>8</strong><span>Public projects on GitHub</span></div><div class="card stat"><strong>4</strong><span>Person team at RumiWare</span></div>
+  <div class="card stat"><strong>3</strong><span>Languages: Python, JavaScript, C++</span></div><div class="card stat"><strong>2030</strong><span>Goal: AI Engineer</span></div>
+ </div>
+</div></section>
+
+<section id="skills"><div class="wrap">
+ <span class="eyebrow rv">Technical skills</span><h2 class="rv">Tools I work with.</h2><p class="sub rv">Grouped by area. Technologies I’m still learning are marked as learning.</p>
+ <div class="sk" id="skg"></div>
+</div></section>
+
+<section id="experience" class="alt"><div class="wrap">
+ <span class="eyebrow rv">Experience &amp; journey</span><h2 class="rv">How I got here.</h2><p class="sub rv">Dates are left out on purpose, so nothing here is invented.</p>
+ <ol class="tl">
+  <li class="rv"><div class="card"><h3>RumiWare · Python Full-Stack Developer</h3><small>Software development team · 4 members</small><p class="mut">Team member contributing to web applications, backend functionality and frontend work, including the SchoolOS school management platform.</p><div class="bd"><span class="badge">Python</span><span class="badge">Django</span><span class="badge">PostgreSQL</span><span class="badge">Teamwork</span></div></div></li>
+  <li class="rv"><div class="card"><h3>Backend with FastAPI</h3><small>Self-directed learning</small><p class="mut">Built student management applications with login, role-based dashboards and JWT authentication stored in HTTP-only cookies.</p><div class="bd"><span class="badge">FastAPI</span><span class="badge">JWT</span><span class="badge">Jinja2</span></div></div></li>
+  <li class="rv"><div class="card"><h3>JavaScript practice</h3><small>Daily learning</small><p class="mut">Working through functions, arrays, objects and console applications, and building small browser projects such as a Pong game.</p><div class="bd"><span class="badge">JavaScript</span><span class="badge">HTML</span><span class="badge">CSS</span></div></div></li>
+  <li class="rv"><div class="card"><h3>Exploring AI and automation</h3><small>Current focus</small><p class="mut">Learning NumPy and Pandas, and experimenting with local LLMs using Ollama.</p><div class="bd"><span class="badge l">NumPy</span><span class="badge l">Pandas</span><span class="badge">Ollama</span></div></div></li>
+ </ol>
+</div></section>
+
+<section id="projects"><div class="wrap">
+ <span class="eyebrow rv">Featured projects</span><h2 class="rv">Things I’ve actually built.</h2><p class="sub rv">Every card links to its public repository. Features listed match what each repository shows.</p>
+ <div class="filters" role="group" aria-label="Filter projects"><button data-f="all" aria-pressed="true">All</button><button data-f="python" aria-pressed="false">Python</button><button data-f="javascript" aria-pressed="false">JavaScript</button><button data-f="team" aria-pressed="false">Team projects</button></div>
+ <div class="pg" id="pg"></div>
+ <p style="margin-top:2rem"><a class="btn" href="https://github.com/HafizHassanAlee" target="_blank" rel="noopener noreferrer">View all on GitHub</a></p>
+</div></section>
+
+<section id="achievements" class="alt"><div class="wrap">
+ <span class="eyebrow rv">Achievements</span><h2 class="rv">Milestones so far.</h2><p class="sub rv">Real milestones only. Certificates will be added here as I earn them.</p>
+ <div class="ach">
+  <div class="card rv"><span>★</span><h3>Part of the RumiWare team</h3><p>Contributing to a four-member software development team.</p></div>
+  <div class="card rv"><span>⚙</span><h3>SchoolOS pilot platform</h3><p>Contributed to a modular school platform now at controlled-pilot stage.</p></div>
+  <div class="card rv"><span>🔐</span><h3>Authenticated FastAPI app</h3><p>Built a student system with JWT login in HTTP-only cookies.</p></div>
+  <div class="card rv"><span>🎮</span><h3>Multiplayer browser game</h3><p>Built Pong: Neon Rally with CPU opponents, online rooms and tournaments.</p></div>
+ </div>
+</div></section>
+
+<section id="rumiware"><div class="wrap"><div class="card rumi rv">
+ <figure class="rlogo"><img src="rumiware-logo.jpeg" width="150" height="150" alt="RumiWare logo" onerror="this.parentElement.classList.add('noimg')"></figure>
+ <div><span class="eyebrow">Software house</span><h2>Working with RumiWare.</h2><p class="quote">“Building Technology. Creating Possibilities.”</p>
+  <p class="mut">RumiWare is a four-member software development team turning ideas into practical digital products. As a Python Full-Stack Developer and team member, I contribute to web applications, backend functionality and frontend experiences.</p>
+  <div class="ctas"><a class="btn pri" href="https://rumiware.com/" target="_blank" rel="noopener noreferrer">Official website</a><a class="btn" href="https://github.com/Rumi-Ware/RumiWare" target="_blank" rel="noopener noreferrer">GitHub organization</a></div></div>
+</div></div></section>
+
+<section id="contact" class="alt"><div class="wrap contact">
+ <div class="rv"><span class="eyebrow">Contact</span><h2>Have a project in mind? Let’s build something meaningful.</h2>
+  <p class="sub">I’m always glad to connect with developers, learn from others and work on meaningful software.</p>
+  <ul class="links"><li><a class="btn" href="https://www.linkedin.com/in/hassan-alee/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><a class="btn" href="https://github.com/HafizHassanAlee" target="_blank" rel="noopener noreferrer">GitHub</a></li><li id="em"></li></ul></div>
+ <form class="card rv" id="cf">
+  <label>Name<input name="n" required autocomplete="name"></label><label>Email<input name="e" type="email" required autocomplete="email"></label>
+  <label>Subject<input name="s" required></label><label>Message<textarea name="m" required></textarea></label>
+  <button class="btn pri" type="submit" id="send">Send message</button><p class="note" id="cn" role="status"></p>
+ </form>
+</div></section>
+</main>
+<footer><div class="wrap"><div class="top2">
+ <div><a class="logo" href="#home"><i>H</i>Hassan Ali</a><p>Building practical software today, working toward AI engineering tomorrow.</p></div>
+ <ul><li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li><li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li><li><a href="https://github.com/HafizHassanAlee" target="_blank" rel="noopener noreferrer">GitHub</a></li><li><a href="https://www.linkedin.com/in/hassan-alee/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li></ul>
+</div><p class="copy">© <span id="yr"></span> Muhammad Hassan Ali. Designed and built by hand.</p></div></footer>
+<button class="ico" id="top" aria-label="Back to top">↑</button>
+
+<script>
+/* EDIT HERE: add your email and a CV file path (e.g. "Hassan-Ali-CV.pdf") */
+const CONFIG={email:"",cv:""};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+$('#yr').textContent=new Date().getFullYear();
+try{const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t}catch(e){}
+$('#theme').onclick=()=>{const d=document.documentElement,dk=d.dataset.theme?d.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches,n=dk?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('theme',n)}catch(e){}};
+const nav=$('#nav'),mb=$('#menu');mb.onclick=()=>{mb.setAttribute('aria-expanded',nav.classList.toggle('open'))};
+$$('nav a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');mb.setAttribute('aria-expanded',false)}));
+if(CONFIG.cv){const c=$('#cv');c.href=CONFIG.cv;c.hidden=false}
+const SK={"Programming":["Python","JavaScript","C++"],"Backend development":["FastAPI","REST APIs","Pydantic","JWT authentication"],"AI & data":["NumPy","Pandas","Ollama","Local LLM experimentation"],"Tools":["Git","GitHub","VS Code","Postman"],"Database":["SQL","PostgreSQL|learning"]};
+$('#skg').innerHTML=Object.entries(SK).map(([k,v])=>`<div class="card rv"><h3>${k}</h3><div class="bd">${v.map(x=>{const[n,l]=x.split('|');return `<span class="badge ${l?'l':''}">${n}${l?' (learning)':''}</span>`}).join('')}</div></div>`).join('');
+const GH="https://github.com/HafizHassanAlee/";
+const P=[
+{n:"Student Management System (FastAPI)",c:"python",r:GH+"student-management-fastapi",d:"A FastAPI web app for managing student records, with separate student and admin areas and JWT authentication in HTTP-only cookies.",t:["Python","FastAPI","Jinja2","JWT","HTML","CSS"],s:`<i>@app</i>.post("/login")\n<i>def</i> login(form):\n  set_cookie(token, httponly=True)`},
+{n:"School Management System (SchoolOS)",c:"python team",r:GH+"School-Management-System",l:"https://rumiware-schoolos.vercel.app/",d:"A modular school platform with student, guardian and teacher portals, admissions, attendance, examinations and finance. Built with the RumiWare team; a controlled pilot candidate, not approved for real-school production use.",t:["Django","Python","PostgreSQL","Team project"],s:`<i>class</i> Enrollment(Model):\n  student = ForeignKey(...)\n  <i># role-scoped access</i>`},
+{n:"JavaScript Learning Series",c:"javascript",r:GH+"JavaScript-Series",d:"My growing JavaScript practice repository: functions, arrays, objects, console applications and a Student Records Management System.",t:["JavaScript"],s:`<i>const</i> add = (a, b) => a + b\nstudents.<i>filter</i>(s => s.active)`},
+{n:"Rumi Dental Care CMS",c:"python team",r:GH+"Dental-Clinic-CMS",d:"A full-stack dental clinic website and management platform with patient, clinical, financial and administrative workflows.",t:["FastAPI","PostgreSQL","SQLAlchemy","React","TypeScript","Alembic"],s:`<i>class</i> Patient(Base):\n  __tablename__ = "patients"\n  <i># migrations: Alembic</i>`},
+{n:"Pong: Neon Rally",c:"javascript",r:GH+"Pong-Game",d:"A browser Pong game with CPU opponents, local and online multiplayer rooms, a tournament mode and mobile controls.",t:["JavaScript","Node.js","HTML","CSS"],s:`<i>const</i> ball = { x: 0, vx: 4 }\n<i>function</i> update() {\n  ball.x += ball.vx\n}`},
+{n:"Student Management (PostgreSQL)",c:"python",r:GH+"Student-Management-System-using-SQL",d:"A command-line learning project doing CRUD on student records in PostgreSQL with validated input and parameterized queries.",t:["Python","PostgreSQL","SQL","Psycopg 3"],s:`cur.execute(\n  "SELECT * FROM students WHERE id = %s",\n  (student_id,)\n)`},
+{n:"Python Student Management System",c:"python",r:GH+"STUDENT-MANAGEMENT-SYSTEM",d:"A Python console program that adds, searches, updates and deletes student records saved in a local JSON file.",t:["Python","JSON"],s:`<i>with</i> open("students.json") <i>as</i> f:\n  students = json.load(f)`},
+{n:"FastAPI Blogging Website",c:"python",r:GH+"Blogging-Website-using-fastAPI",d:"A backend-focused blogging website project built with FastAPI. See the repository for details.",t:["Python","FastAPI"],s:`<i>@app</i>.get("/posts")\n<i>def</i> list_posts():\n  <i>return</i> posts`}];
+$('#pg').innerHTML=P.map(p=>`<article class="card proj rv" data-c="${p.c}"><div class="shot" aria-hidden="true"><pre>${p.s}</pre></div><div class="pb"><h3>${p.n}</h3><p>${p.d}</p><div class="bd">${p.t.map(x=>`<span class="badge">${x}</span>`).join('')}</div><div class="pbtn"><a class="btn" href="${p.r}" target="_blank" rel="noopener noreferrer">GitHub</a>${p.l?`<a class="btn pri" href="${p.l}" target="_blank" rel="noopener noreferrer">Live demo</a>`:''}</div></div></article>`).join('');
+$$('.filters button').forEach(b=>b.onclick=()=>{$$('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));$$('.proj').forEach(p=>{p.hidden=!(b.dataset.f==='all'||p.dataset.c.split(' ').includes(b.dataset.f))})});
+if(CONFIG.email){$('#em').innerHTML=`<a class="btn" href="mailto:${CONFIG.email}">${CONFIG.email}</a>`;$('#cn').textContent="This opens your email app with the message filled in."}
+else{$('#em').innerHTML='<span class="btn" aria-disabled="true" style="opacity:.55">Email (not added yet)</span>';$('#send').disabled=true;$('#cn').textContent="The form is off until an email address is set in CONFIG. It opens your email app; it doesn’t send messages itself."}
+$('#cf').onsubmit=e=>{e.preventDefault();if(!CONFIG.email)return;const f=new FormData(e.target);location.href=`mailto:${CONFIG.email}?subject=${encodeURIComponent(f.get('s'))}&body=${encodeURIComponent(f.get('m')+'\n\n— '+f.get('n')+' ('+f.get('e')+')')}`};
+const L=$$('nav a.l'),S=L.map(l=>$(l.getAttribute('href')));
+const so=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=S.indexOf(e.target);if(i>-1)L.forEach((l,j)=>l.classList.toggle('on',i===j))}}),{rootMargin:'-45% 0px -50% 0px'});S.forEach(s=>s&&so.observe(s));
+const tt=$('#top');addEventListener('scroll',()=>{tt.classList.toggle('show',scrollY>700);const h=document.documentElement.scrollHeight-innerHeight;$('#prog').style.transform='scaleX('+(h>0?scrollY/h:0)+')'},{passive:true});
+tt.onclick=()=>scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+(function(){try{const els=$$('.rv');if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting||e.boundingClientRect.top<0){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -6% 0px'});
+ els.forEach((e,i)=>{e.style.transitionDelay=(i%3)*70+'ms';io.observe(e)});document.documentElement.classList.add('js-r')}catch(e){}})();
+</script>
+</body>
+</html>

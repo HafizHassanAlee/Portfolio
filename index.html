@@ -148,6 +148,14 @@ dialog#pal::backdrop{background:rgba(0,0,0,.55);backdrop-filter:blur(3px)}
 #bg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 footer{overflow:hidden;padding-bottom:0}
 .bigname{margin-top:1.5rem;text-align:center;white-space:nowrap;user-select:none;font:800 clamp(3rem,13.5vw,11rem)/.9 var(--sans);letter-spacing:-.05em;padding-bottom:.08em;background:linear-gradient(180deg,color-mix(in srgb,var(--ac) 70%,transparent),color-mix(in srgb,var(--ac3) 8%,transparent) 85%);-webkit-background-clip:text;background-clip:text;color:transparent}
+/* Shuffle-in projects + growing timeline line */
+.proj{will-change:translate,rotate,opacity}
+.proj.tilt{transition:transform .15s ease-out,border-color .25s}
+.tl::before{background:var(--line)}
+.tl::after{content:"";position:absolute;z-index:0;left:8px;top:8px;width:var(--w,2px);height:var(--h,0px);transform:translateX(-50%);border-radius:99px;background:linear-gradient(180deg,var(--ac),var(--ac3));box-shadow:0 0 14px color-mix(in srgb,var(--ac) 55%,transparent)}
+.tl li{z-index:1}
+.tl li::before{border-color:var(--line);transition:border-color .3s,box-shadow .3s}
+.tl li.hit::before{border-color:var(--ac);box-shadow:0 0 0 5px color-mix(in srgb,var(--ac) 20%,transparent)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -273,7 +281,7 @@ const P=[
 {n:"Student Management (PostgreSQL)",c:"python",r:GH+"Student-Management-System-using-SQL",d:"A command-line learning project doing CRUD on student records in PostgreSQL with validated input and parameterized queries.",t:["Python","PostgreSQL","SQL","Psycopg 3"],s:`cur.execute(\n  "SELECT * FROM students WHERE id = %s",\n  (student_id,)\n)`},
 {n:"Python Student Management System",c:"python",r:GH+"STUDENT-MANAGEMENT-SYSTEM",d:"A Python console program that adds, searches, updates and deletes student records saved in a local JSON file.",t:["Python","JSON"],s:`<i>with</i> open("students.json") <i>as</i> f:\n  students = json.load(f)`},
 {n:"FastAPI Blogging Website",c:"python",r:GH+"Blogging-Website-using-fastAPI",d:"A backend-focused blogging website project built with FastAPI. See the repository for details.",t:["Python","FastAPI"],s:`<i>@app</i>.get("/posts")\n<i>def</i> list_posts():\n  <i>return</i> posts`}];
-$('#pg').innerHTML=P.map(p=>`<article class="card proj rv" data-c="${p.c}"><div class="shot" aria-hidden="true"><pre>${p.s}</pre></div><div class="pb"><h3>${p.n}</h3><p>${p.d}</p><div class="bd">${p.t.map(x=>`<span class="badge">${x}</span>`).join('')}</div><div class="pbtn"><a class="btn" href="${p.r}" target="_blank" rel="noopener noreferrer">GitHub</a>${p.l?`<a class="btn pri" href="${p.l}" target="_blank" rel="noopener noreferrer">Live demo</a>`:''}</div></div></article>`).join('');
+$('#pg').innerHTML=P.map(p=>`<article class="card proj" data-c="${p.c}"><div class="shot" aria-hidden="true"><pre>${p.s}</pre></div><div class="pb"><h3>${p.n}</h3><p>${p.d}</p><div class="bd">${p.t.map(x=>`<span class="badge">${x}</span>`).join('')}</div><div class="pbtn"><a class="btn" href="${p.r}" target="_blank" rel="noopener noreferrer">GitHub</a>${p.l?`<a class="btn pri" href="${p.l}" target="_blank" rel="noopener noreferrer">Live demo</a>`:''}</div></div></article>`).join('');
 $$('.filters button').forEach(b=>b.onclick=()=>{$$('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));$$('.proj').forEach(p=>{p.hidden=!(b.dataset.f==='all'||p.dataset.c.split(' ').includes(b.dataset.f))})});
 /* Loss-landscape background: slowly shifting contour lines; the cursor digs a "minimum" that ripples outward */
 (function(){const cv=$('#bg'),x=cv.getContext('2d');if(!x)return;const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,dpr=Math.min(devicePixelRatio||1,1.5),M={x:0,y:0,tx:0,ty:0,s:0,on:0},LV=[];for(let i=-6;i<=6;i++)LV.push(i*.3);let W,H,cs,cols,rows,F;
@@ -307,6 +315,15 @@ pq.oninput=()=>{pi=0;rp()};
 pq.onkeydown=e=>{if(e.key==='ArrowDown'){e.preventDefault();pi=Math.min(pi+1,pv.length-1);rp()}else if(e.key==='ArrowUp'){e.preventDefault();pi=Math.max(pi-1,0);rp()}else if(e.key==='Enter'){e.preventDefault();run(pi)}};
 pl.onclick=e=>{const b=e.target.closest('button');if(b)run(+b.dataset.i)};
 pal.onclick=e=>{if(e.target===pal)pal.close()};
+/* Projects shuffle into place + timeline line that thickens with scroll */
+(function(){const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,cards=$$('.proj'),tl=$('.tl'),li=$$('.tl li');
+ const R=[[-140,190,-9],[110,230,8],[-90,260,7],[150,200,-7],[-120,240,10],[90,210,-10],[-60,250,6],[130,220,-8]];
+ const top=e=>{let y=0;while(e){y+=e.offsetTop;e=e.offsetParent}return y};
+ function shuf(){const vh=innerHeight,k=Math.min(1,innerWidth/900);cards.forEach((c,i)=>{if(c.hidden)return;const p=Math.max(0,Math.min(1,(vh*.98-(top(c)-scrollY))/(vh*.5))),e=1-Math.pow(1-p,3),u=1-e,q=R[i%R.length];c.style.translate=`${(q[0]*u*k).toFixed(1)}px ${(q[1]*u).toFixed(1)}px`;c.style.rotate=(q[2]*u).toFixed(2)+'deg';c.style.scale=(.9+.1*e).toFixed(3);c.style.opacity=Math.min(1,e*1.5).toFixed(3)})}
+ function line(){const vh=innerHeight,r=tl.getBoundingClientRect(),p=Math.max(0,Math.min(1,(vh*.62-r.top)/r.height));tl.style.setProperty('--h',((r.height-16)*p).toFixed(1)+'px');tl.style.setProperty('--w',(2+6*p).toFixed(2)+'px');li.forEach(l=>l.classList.toggle('hit',l.getBoundingClientRect().top+24<vh*.62))}
+ if(reduce){tl.style.setProperty('--h','calc(100% - 16px)');tl.style.setProperty('--w','5px');li.forEach(l=>l.classList.add('hit'));return}
+ let busy=false;const go=()=>{if(!busy){busy=true;requestAnimationFrame(()=>{busy=false;shuf();line()})}};
+ addEventListener('scroll',go,{passive:true});addEventListener('resize',go);$$('.filters button').forEach(b=>b.addEventListener('click',go));go()})();
 /* 3D tilt: only on project cards and the About stat cards */
 if(matchMedia('(hover:hover)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches){$$('.proj,.stat').forEach(el=>{el.classList.add('tilt');
  el.addEventListener('mouseenter',()=>{el.style.transitionDelay='0ms'});

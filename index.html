@@ -145,12 +145,14 @@ dialog#pal::backdrop{background:rgba(0,0,0,.55);backdrop-filter:blur(3px)}
 .proj,.tl .card,.sk .card,.rumi{border-top-color:color-mix(in srgb,var(--ac) 55%,var(--line))}
 .badge{border-color:color-mix(in srgb,var(--ac) 30%,var(--line))}
 .eyebrow{color:var(--ac3);background:color-mix(in srgb,var(--ac3) 14%,transparent)}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
 footer{overflow:hidden;padding-bottom:0}
 .bigname{margin-top:1.5rem;text-align:center;white-space:nowrap;user-select:none;font:800 clamp(3rem,13.5vw,11rem)/.9 var(--sans);letter-spacing:-.05em;padding-bottom:.08em;background:linear-gradient(180deg,color-mix(in srgb,var(--ac) 70%,transparent),color-mix(in srgb,var(--ac3) 8%,transparent) 85%);-webkit-background-clip:text;background-clip:text;color:transparent}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
+<canvas id="bg" aria-hidden="true"></canvas>
 <div id="prog" aria-hidden="true"></div>
 <header class="top"><div class="wrap bar">
  <a class="logo" href="#home" aria-label="Hassan Ali, home"><i>H</i>Hassan Ali</a>
@@ -273,6 +275,24 @@ const P=[
 {n:"FastAPI Blogging Website",c:"python",r:GH+"Blogging-Website-using-fastAPI",d:"A backend-focused blogging website project built with FastAPI. See the repository for details.",t:["Python","FastAPI"],s:`<i>@app</i>.get("/posts")\n<i>def</i> list_posts():\n  <i>return</i> posts`}];
 $('#pg').innerHTML=P.map(p=>`<article class="card proj rv" data-c="${p.c}"><div class="shot" aria-hidden="true"><pre>${p.s}</pre></div><div class="pb"><h3>${p.n}</h3><p>${p.d}</p><div class="bd">${p.t.map(x=>`<span class="badge">${x}</span>`).join('')}</div><div class="pbtn"><a class="btn" href="${p.r}" target="_blank" rel="noopener noreferrer">GitHub</a>${p.l?`<a class="btn pri" href="${p.l}" target="_blank" rel="noopener noreferrer">Live demo</a>`:''}</div></div></article>`).join('');
 $$('.filters button').forEach(b=>b.onclick=()=>{$$('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));$$('.proj').forEach(p=>{p.hidden=!(b.dataset.f==='all'||p.dataset.c.split(' ').includes(b.dataset.f))})});
+/* Loss-landscape background: slowly shifting contour lines; the cursor digs a "minimum" that ripples outward */
+(function(){const cv=$('#bg'),x=cv.getContext('2d');if(!x)return;const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,dpr=Math.min(devicePixelRatio||1,1.5),M={x:0,y:0,tx:0,ty:0,s:0,on:0},LV=[];for(let i=-6;i<=6;i++)LV.push(i*.3);let W,H,cs,cols,rows,F;
+function init(){W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);cs=W<700?46:34;cols=Math.ceil(W/cs)+2;rows=Math.ceil(H/cs)+2;F=new Float32Array(cols*rows);M.x=M.tx=W*.7;M.y=M.ty=H*.4;if(reduce)draw(0)}
+function draw(now){const t=reduce?18:now/1000,lt=document.documentElement.dataset.theme==='light';
+ M.x+=(M.tx-M.x)*.08;M.y+=(M.ty-M.y)*.08;M.s+=(M.on-M.s)*.05;
+ for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const X=i*cs,Y=j*cs,dx=X-M.x,dy=Y-M.y;
+  F[j*cols+i]=Math.sin(X*.0042+t*.22)*.6+Math.sin(Y*.0055-t*.18)*.6+Math.sin(X*.0031+Y*.0039+t*.14)*.5+Math.sin(Math.hypot(X-W*.72,Y-H*.35)*.006-t*.26)*.5-1.7*M.s*Math.exp(-(dx*dx+dy*dy)/57800)}
+ x.clearRect(0,0,W,H);x.lineWidth=1;
+ for(let k=0;k<LV.length;k++){const L=LV[k],idx3=k%3===0,col=L<0?(lt?'22,163,74':'74,222,128'):(lt?'8,145,178':'34,211,238');
+  x.strokeStyle=`rgba(${col},${idx3?(lt?.22:.2):(lt?.11:.09)})`;x.beginPath();
+  for(let j=0;j<rows-1;j++)for(let i=0;i<cols-1;i++){const a=F[j*cols+i],b=F[j*cols+i+1],c=F[(j+1)*cols+i+1],d=F[(j+1)*cols+i],n=(a>L?8:0)|(b>L?4:0)|(c>L?2:0)|(d>L?1:0);if(n===0||n===15)continue;
+   const X=i*cs,Y=j*cs,tx=X+(L-a)/(b-a)*cs,ry=Y+(L-b)/(c-b)*cs,bx=X+(L-d)/(c-d)*cs,ly=Y+(L-a)/(d-a)*cs,R=X+cs,B=Y+cs;
+   const sg=(x1,y1,x2,y2)=>{x.moveTo(x1,y1);x.lineTo(x2,y2)};
+   switch(n){case 1:case 14:sg(X,ly,bx,B);break;case 2:case 13:sg(bx,B,R,ry);break;case 3:case 12:sg(X,ly,R,ry);break;case 4:case 11:sg(tx,Y,R,ry);break;case 5:sg(tx,Y,X,ly);sg(bx,B,R,ry);break;case 6:case 9:sg(tx,Y,bx,B);break;case 7:case 8:sg(tx,Y,X,ly);break;case 10:sg(tx,Y,R,ry);sg(X,ly,bx,B);break}}
+  x.stroke()}}
+function loop(n){draw(n);requestAnimationFrame(loop)}
+addEventListener('pointermove',e=>{M.tx=e.clientX;M.ty=e.clientY;M.on=1},{passive:true});document.documentElement.addEventListener('mouseleave',()=>{M.on=0});
+let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(init,150)});init();if(!reduce)requestAnimationFrame(loop)})();
 /* Card spotlight */
 document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card');if(c){const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')}},{passive:true});
 /* Command palette (Ctrl/Cmd + K) */

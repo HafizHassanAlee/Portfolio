@@ -315,15 +315,16 @@ pq.oninput=()=>{pi=0;rp()};
 pq.onkeydown=e=>{if(e.key==='ArrowDown'){e.preventDefault();pi=Math.min(pi+1,pv.length-1);rp()}else if(e.key==='ArrowUp'){e.preventDefault();pi=Math.max(pi-1,0);rp()}else if(e.key==='Enter'){e.preventDefault();run(pi)}};
 pl.onclick=e=>{const b=e.target.closest('button');if(b)run(+b.dataset.i)};
 pal.onclick=e=>{if(e.target===pal)pal.close()};
-/* Projects shuffle into place + timeline line that thickens with scroll */
+/* Projects fly out from the centre of the screen and shuffle into place; timeline line thickens with scroll */
 (function(){const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,cards=$$('.proj'),tl=$('.tl'),li=$$('.tl li');
- const R=[[-140,190,-9],[110,230,8],[-90,260,7],[150,200,-7],[-120,240,10],[90,210,-10],[-60,250,6],[130,220,-8]];
- const top=e=>{let y=0;while(e){y+=e.offsetTop;e=e.offsetParent}return y};
- function shuf(){const vh=innerHeight,k=Math.min(1,innerWidth/900);cards.forEach((c,i)=>{if(c.hidden)return;const p=Math.max(0,Math.min(1,(vh*.98-(top(c)-scrollY))/(vh*.5))),e=1-Math.pow(1-p,3),u=1-e,q=R[i%R.length];c.style.translate=`${(q[0]*u*k).toFixed(1)}px ${(q[1]*u).toFixed(1)}px`;c.style.rotate=(q[2]*u).toFixed(2)+'deg';c.style.scale=(.9+.1*e).toFixed(3);c.style.opacity=Math.min(1,e*1.5).toFixed(3)})}
  function line(){const vh=innerHeight,r=tl.getBoundingClientRect(),p=Math.max(0,Math.min(1,(vh*.62-r.top)/r.height));tl.style.setProperty('--h',((r.height-16)*p).toFixed(1)+'px');tl.style.setProperty('--w',(2+6*p).toFixed(2)+'px');li.forEach(l=>l.classList.toggle('hit',l.getBoundingClientRect().top+24<vh*.62))}
  if(reduce){tl.style.setProperty('--h','calc(100% - 16px)');tl.style.setProperty('--w','5px');li.forEach(l=>l.classList.add('hit'));return}
- let busy=false;const go=()=>{if(!busy){busy=true;requestAnimationFrame(()=>{busy=false;shuf();line()})}};
- addEventListener('scroll',go,{passive:true});addEventListener('resize',go);$$('.filters button').forEach(b=>b.addEventListener('click',go));go()})();
+ let busy=false;const go=()=>{if(!busy){busy=true;requestAnimationFrame(()=>{busy=false;line()})}};addEventListener('scroll',go,{passive:true});addEventListener('resize',go);go();
+ const pos=e=>{let x=0,y=0;while(e){x+=e.offsetLeft;y+=e.offsetTop;e=e.offsetParent}return[x,y]},done=new WeakSet(),pg=$('#pg');
+ function fly(c,n){const[cx,cy]=pos(c),[gx]=pos(pg),dx=gx+pg.offsetWidth/2-(cx+c.offsetWidth/2),dy=scrollY+innerHeight*.5-(cy+c.offsetHeight/2),r=(Math.random()-.5)*36;c.style.opacity=1;
+  c.animate([{translate:`${dx}px ${dy}px`,rotate:`${r}deg`,scale:.7,opacity:0},{translate:`${dx*.3}px ${dy*.3}px`,rotate:`${-r*.6}deg`,scale:1.05,opacity:1,offset:.55},{translate:'0px 0px',rotate:'0deg',scale:1,opacity:1}],{duration:1000,delay:n*130,easing:'cubic-bezier(.22,.9,.3,1.08)',fill:'both'})}
+ const io=new IntersectionObserver(es=>{let n=0;es.forEach(en=>{const c=en.target;if(en.isIntersecting){if(done.has(c))return;done.add(c);fly(c,n++)}else if(en.boundingClientRect.top>0&&done.has(c)){done.delete(c);c.getAnimations().forEach(x=>x.cancel());c.style.opacity=0}})},{rootMargin:'0px 0px -12% 0px',threshold:.1});
+ cards.forEach(c=>{c.style.opacity=0;io.observe(c)})})();
 /* 3D tilt: only on project cards and the About stat cards */
 if(matchMedia('(hover:hover)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches){$$('.proj,.stat').forEach(el=>{el.classList.add('tilt');
  el.addEventListener('mouseenter',()=>{el.style.transitionDelay='0ms'});

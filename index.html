@@ -111,11 +111,31 @@ footer .logo i{background:var(--ac);color:#06120a}.copy{margin-top:2.5rem;paddin
 .card.tilt{transition:opacity .7s,transform .15s ease-out,border-color .25s;will-change:transform}
 /* Glassmorphism: header, hero chips, About stats, achievements, contact form */
 :root{--glass:rgba(255,255,255,.55);--glass-b:rgba(20,40,28,.1);--glow:rgba(22,163,74,.16)}
-:root[data-theme="dark"]{--glass:rgba(255,255,255,.05);--glass-b:rgba(255,255,255,.14);--glow:rgba(74,222,128,.15)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--glass:rgba(255,255,255,.05);--glass-b:rgba(255,255,255,.14);--glow:rgba(74,222,128,.15)}}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(620px 420px at 12% 22%,var(--glow),transparent 70%),radial-gradient(520px 420px at 88% 68%,var(--glow),transparent 70%)}
+:root[data-theme="dark"]{--glass:rgba(255,255,255,.05);--glass-b:rgba(255,255,255,.14);--glow:rgba(74,222,128,.26)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--glass:rgba(255,255,255,.05);--glass-b:rgba(255,255,255,.14);--glow:rgba(74,222,128,.26)}}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(760px 520px at 12% 20%,var(--glow),transparent 70%),radial-gradient(680px 520px at 90% 55%,var(--glow),transparent 70%),radial-gradient(640px 460px at 40% 100%,var(--glow),transparent 70%)}
 .stat,.ach .card,#cf,.chip{background:var(--glass);border-color:var(--glass-b);-webkit-backdrop-filter:blur(16px) saturate(150%);backdrop-filter:blur(16px) saturate(150%);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),var(--sh)}
 header.top{background:color-mix(in srgb,var(--bg) 55%,transparent);-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%)}.js-r .rv:not(.in){opacity:0;transform:translateY(22px)}
+/* Pro touches: typing cursor, terminal card, spotlight, command palette */
+@keyframes bl{50%{opacity:0}}
+.typed::after,.cur{content:"";display:inline-block;width:2px;height:1em;background:var(--ac);margin-left:4px;vertical-align:-.12em;animation:bl 1s steps(1) infinite}
+.cur{width:8px;vertical-align:-.15em;margin-left:3px}
+.term{border-radius:16px;overflow:hidden;border:1px solid var(--glass-b);background:rgba(4,8,6,.72);font:400 .82rem/1.8 var(--mono);box-shadow:var(--sh)}
+.term .tb{display:flex;gap:6px;padding:.65rem .9rem;border-bottom:1px solid var(--glass-b)}
+.term .tb i{width:10px;height:10px;border-radius:50%;background:#2f3a34}.term .tb i:first-child{background:#ef6a5e}.term .tb i:nth-child(2){background:#f5bd4f}.term .tb i:nth-child(3){background:#5ac85a}
+.term pre{margin:0;padding:.9rem 1rem 1rem;color:#cfe3d6;white-space:pre-wrap;font:inherit}.term .g{color:#4ade80}.term .m{color:#7f9a8a}
+.card{position:relative}
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--ac) 14%,transparent),transparent 60%);opacity:0;transition:opacity .25s}
+.card:hover::after{opacity:1}
+.kbd{width:auto;padding:0 .8rem;font:500 .78rem var(--mono)}
+@media(max-width:560px){.kbd{display:none}}
+dialog#pal{width:min(560px,92vw);margin:12vh auto auto;padding:0;border:1px solid var(--glass-b);border-radius:16px;background:color-mix(in srgb,var(--bg2) 88%,transparent);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);color:var(--fg);box-shadow:0 30px 80px -20px rgba(0,0,0,.6)}
+dialog#pal::backdrop{background:rgba(0,0,0,.55);backdrop-filter:blur(3px)}
+#pq{border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent;padding:1rem 1.2rem;font-size:1rem}#pq:focus{outline:none}
+#pl{list-style:none;margin:0;padding:.5rem;max-height:50vh;overflow:auto}
+#pl button{width:100%;text-align:left;padding:.7rem .9rem;border:0;border-radius:10px;background:transparent;color:var(--fg);font:500 .95rem var(--sans);cursor:pointer}
+#pl button:hover,#pl button.on{background:var(--soft);color:var(--ac)}#pl .none{padding:.8rem .9rem;color:var(--mut)}
+.phint{padding:.55rem 1.2rem;border-top:1px solid var(--line);font:400 .74rem var(--mono);color:var(--mut)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -126,12 +146,12 @@ header.top{background:color-mix(in srgb,var(--bg) 55%,transparent);-webkit-backd
  <nav id="nav" aria-label="Main"><ul>
   <li><a class="l" href="#home">Home</a></li><li><a class="l" href="#about">About</a></li><li><a class="l" href="#skills">Skills</a></li><li><a class="l" href="#experience">Experience</a></li>
   <li><a class="l" href="#projects">Projects</a></li><li><a class="l" href="#achievements">Achievements</a></li><li><a class="l" href="#contact">Contact</a></li></ul></nav>
- <div class="tools"><a class="btn pri" id="cv" href="#" hidden download>Download CV</a><button class="ico" id="theme" aria-label="Switch theme">◐</button><button class="ico" id="menu" aria-label="Open menu" aria-expanded="false" aria-controls="nav">☰</button></div>
+ <div class="tools"><a class="btn pri" id="cv" href="#" hidden download>Download CV</a><button class="ico kbd" id="kb" aria-label="Open command menu" title="Command menu (Ctrl+K)">Ctrl K</button><button class="ico" id="theme" aria-label="Switch theme">◐</button><button class="ico" id="menu" aria-label="Open menu" aria-expanded="false" aria-controls="nav">☰</button></div>
 </div></header>
 <main>
 <section class="hero" id="home"><div class="wrap hgrid">
  <div>
-  <p class="hello">Hello, I’m</p><h1>Muhammad Hassan Ali</h1><p class="role">Aspiring AI/ML Engineer</p>
+  <p class="hello">Hello, I’m</p><h1>Muhammad Hassan Ali</h1><p class="role" aria-label="Aspiring AI/ML Engineer"><span id="rt" class="typed" aria-hidden="true">Aspiring AI/ML Engineer</span></p>
   <p class="tagl">Computer Science Student | Python Developer | Full Stack Developer</p>
   <p class="intro">I’m fascinated by how artificial intelligence turns data into useful decisions. I build practical software with Python, FastAPI and JavaScript, and I’m steadily growing toward AI engineering by solving real problems with real projects.</p>
   <div class="ctas"><a class="btn pri" href="#projects">Explore My Work</a><a class="btn" href="#contact">Contact Me</a></div>
@@ -151,6 +171,12 @@ header.top{background:color-mix(in srgb,var(--bg) 55%,transparent);-webkit-backd
  <div class="stats rv">
   <div class="card stat"><strong>8</strong><span>Public projects on GitHub</span></div><div class="card stat"><strong>4</strong><span>Person team at RumiWare</span></div>
   <div class="card stat"><strong>3</strong><span>Languages: Python, JavaScript, C++</span></div><div class="card stat"><strong>2030</strong><span>Goal: AI Engineer</span></div>
+  <div class="term" style="grid-column:1/-1" aria-label="Terminal summary"><div class="tb" aria-hidden="true"><i></i><i></i><i></i></div><pre><span class="g">hassan@portfolio</span><span class="m">:~$</span> whoami
+Muhammad Hassan Ali, CS student
+<span class="g">hassan@portfolio</span><span class="m">:~$</span> cat focus.txt
+Python · FastAPI · JavaScript · AI/ML
+<span class="g">hassan@portfolio</span><span class="m">:~$</span> git status
+building in public<span class="cur"></span></pre></div>
  </div>
 </div></section>
 
@@ -208,6 +234,7 @@ header.top{background:color-mix(in srgb,var(--bg) 55%,transparent);-webkit-backd
  <div><a class="logo" href="#home"><i>H</i>Hassan Ali</a><p>Building practical software today, working toward AI engineering tomorrow.</p></div>
  <ul><li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li><li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li><li><a href="https://github.com/HafizHassanAlee" target="_blank" rel="noopener noreferrer">GitHub</a></li><li><a href="https://www.linkedin.com/in/hassan-alee/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li></ul>
 </div><p class="copy">© <span id="yr"></span> Muhammad Hassan Ali. Designed and built by hand.</p></div></footer>
+<dialog id="pal" aria-label="Command menu"><input id="pq" placeholder="Type a command or search…" aria-label="Search commands" autocomplete="off"><ul id="pl"></ul><div class="phint">↑ ↓ to move · Enter to run · Esc to close</div></dialog>
 <button class="ico" id="top" aria-label="Back to top">↑</button>
 
 <script>
@@ -235,6 +262,23 @@ const P=[
 {n:"FastAPI Blogging Website",c:"python",r:GH+"Blogging-Website-using-fastAPI",d:"A backend-focused blogging website project built with FastAPI. See the repository for details.",t:["Python","FastAPI"],s:`<i>@app</i>.get("/posts")\n<i>def</i> list_posts():\n  <i>return</i> posts`}];
 $('#pg').innerHTML=P.map(p=>`<article class="card proj rv" data-c="${p.c}"><div class="shot" aria-hidden="true"><pre>${p.s}</pre></div><div class="pb"><h3>${p.n}</h3><p>${p.d}</p><div class="bd">${p.t.map(x=>`<span class="badge">${x}</span>`).join('')}</div><div class="pbtn"><a class="btn" href="${p.r}" target="_blank" rel="noopener noreferrer">GitHub</a>${p.l?`<a class="btn pri" href="${p.l}" target="_blank" rel="noopener noreferrer">Live demo</a>`:''}</div></div></article>`).join('');
 $$('.filters button').forEach(b=>b.onclick=()=>{$$('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));$$('.proj').forEach(p=>{p.hidden=!(b.dataset.f==='all'||p.dataset.c.split(' ').includes(b.dataset.f))})});
+/* Typing role */
+(function(){const el=$('#rt');if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const W=["Aspiring AI/ML Engineer","Python Developer","Full-Stack Builder","FastAPI & JavaScript Developer"];let w=0,i=W[0].length,del=true;
+(function tick(){const t=W[w];el.textContent=t.slice(0,i);let d=del?40:80;if(del&&i===0){del=false;w=(w+1)%W.length;d=350}else if(!del&&i===t.length){del=true;d=1900}else i+=del?-1:1;setTimeout(tick,d)})()})();
+/* Card spotlight */
+document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card');if(c){const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')}},{passive:true});
+/* Command palette (Ctrl/Cmd + K) */
+const pal=$('#pal'),pq=$('#pq'),pl=$('#pl');let pi=0,pv=[];
+const CM=[...['Home','About','Skills','Experience','Projects','Achievements','Contact'].map(n=>({t:'Go to '+n,f:()=>{location.hash='#'+n.toLowerCase()}})),{t:'Toggle theme',f:()=>$('#theme').click()},{t:'Open GitHub',f:()=>open(GH,'_blank','noopener')},{t:'Open LinkedIn',f:()=>open('https://www.linkedin.com/in/hassan-alee/','_blank','noopener')}];
+function rp(){const q=pq.value.toLowerCase();pv=CM.filter(c=>c.t.toLowerCase().includes(q));pi=Math.min(pi,Math.max(pv.length-1,0));pl.innerHTML=pv.map((c,i)=>`<li><button type="button" data-i="${i}" class="${i===pi?'on':''}">${c.t}</button></li>`).join('')||'<li class="none">No results</li>'}
+function run(i){const c=pv[i];if(!c)return;pal.close();c.f()}
+function op(){pq.value='';pi=0;rp();pal.showModal();pq.focus()}
+$('#kb').onclick=op;
+addEventListener('keydown',e=>{if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='k'){e.preventDefault();pal.open?pal.close():op()}});
+pq.oninput=()=>{pi=0;rp()};
+pq.onkeydown=e=>{if(e.key==='ArrowDown'){e.preventDefault();pi=Math.min(pi+1,pv.length-1);rp()}else if(e.key==='ArrowUp'){e.preventDefault();pi=Math.max(pi-1,0);rp()}else if(e.key==='Enter'){e.preventDefault();run(pi)}};
+pl.onclick=e=>{const b=e.target.closest('button');if(b)run(+b.dataset.i)};
+pal.onclick=e=>{if(e.target===pal)pal.close()};
 /* 3D tilt: only on project cards and the About stat cards */
 if(matchMedia('(hover:hover)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches){$$('.proj,.stat').forEach(el=>{el.classList.add('tilt');
  el.addEventListener('mouseenter',()=>{el.style.transitionDelay='0ms'});

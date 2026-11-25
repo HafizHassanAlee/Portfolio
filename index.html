@@ -145,6 +145,8 @@ dialog#pal::backdrop{background:rgba(0,0,0,.55);backdrop-filter:blur(3px)}
 .proj,.tl .card,.sk .card,.rumi{border-top-color:color-mix(in srgb,var(--ac) 55%,var(--line))}
 .badge{border-color:color-mix(in srgb,var(--ac) 30%,var(--line))}
 .eyebrow{color:var(--ac3);background:color-mix(in srgb,var(--ac3) 14%,transparent)}
+footer{overflow:hidden;padding-bottom:0}
+.bigname{margin-top:1.5rem;text-align:center;white-space:nowrap;user-select:none;font:800 clamp(3rem,13.5vw,11rem)/.9 var(--sans);letter-spacing:-.05em;padding-bottom:.08em;background:linear-gradient(180deg,color-mix(in srgb,var(--ac) 70%,transparent),color-mix(in srgb,var(--ac3) 8%,transparent) 85%);-webkit-background-clip:text;background-clip:text;color:transparent}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -160,7 +162,7 @@ dialog#pal::backdrop{background:rgba(0,0,0,.55);backdrop-filter:blur(3px)}
 <main>
 <section class="hero" id="home"><div class="wrap hgrid">
  <div>
-  <p class="hello">Hello, I’m</p><h1>Muhammad Hassan Ali</h1><p class="role" aria-label="Aspiring AI/ML Engineer"><span id="rt" class="typed" aria-hidden="true">Aspiring AI/ML Engineer</span></p>
+  <p class="hello">Hello, I’m</p><h1>Muhammad Hassan Ali</h1><p class="role">Aspiring AI/ML Engineer</p>
   <p class="tagl">Computer Science Student | Python Developer | Full Stack Developer</p>
   <p class="intro">I’m fascinated by how artificial intelligence turns data into useful decisions. I build practical software with Python, FastAPI and JavaScript, and I’m steadily growing toward AI engineering by solving real problems with real projects.</p>
   <div class="ctas"><a class="btn pri" href="#projects">Explore My Work</a><a class="btn" href="#contact">Contact Me</a></div>
@@ -242,7 +244,7 @@ building in public<span class="cur"></span></pre></div>
 <footer><div class="wrap"><div class="top2">
  <div><a class="logo" href="#home"><i>H</i>Hassan Ali</a><p>Building practical software today, working toward AI engineering tomorrow.</p></div>
  <ul><li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li><li><a href="#experience">Experience</a></li><li><a href="#projects">Projects</a></li><li><a href="#contact">Contact</a></li><li><a href="https://github.com/HafizHassanAlee" target="_blank" rel="noopener noreferrer">GitHub</a></li><li><a href="https://www.linkedin.com/in/hassan-alee/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li></ul>
-</div><p class="copy">© <span id="yr"></span> Muhammad Hassan Ali. Designed and built by hand.</p></div></footer>
+</div><p class="copy">© <span id="yr"></span> Muhammad Hassan Ali. Designed and built by hand.</p><div class="bigname" aria-hidden="true">Hassan Ali</div></div></footer>
 <dialog id="pal" aria-label="Command menu"><input id="pq" placeholder="Type a command or search…" aria-label="Search commands" autocomplete="off"><ul id="pl"></ul><div class="phint">↑ ↓ to move · Enter to run · Esc to close</div></dialog>
 <button class="ico" id="top" aria-label="Back to top">↑</button>
 
@@ -271,9 +273,6 @@ const P=[
 {n:"FastAPI Blogging Website",c:"python",r:GH+"Blogging-Website-using-fastAPI",d:"A backend-focused blogging website project built with FastAPI. See the repository for details.",t:["Python","FastAPI"],s:`<i>@app</i>.get("/posts")\n<i>def</i> list_posts():\n  <i>return</i> posts`}];
 $('#pg').innerHTML=P.map(p=>`<article class="card proj rv" data-c="${p.c}"><div class="shot" aria-hidden="true"><pre>${p.s}</pre></div><div class="pb"><h3>${p.n}</h3><p>${p.d}</p><div class="bd">${p.t.map(x=>`<span class="badge">${x}</span>`).join('')}</div><div class="pbtn"><a class="btn" href="${p.r}" target="_blank" rel="noopener noreferrer">GitHub</a>${p.l?`<a class="btn pri" href="${p.l}" target="_blank" rel="noopener noreferrer">Live demo</a>`:''}</div></div></article>`).join('');
 $$('.filters button').forEach(b=>b.onclick=()=>{$$('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));$$('.proj').forEach(p=>{p.hidden=!(b.dataset.f==='all'||p.dataset.c.split(' ').includes(b.dataset.f))})});
-/* Typing role */
-(function(){const el=$('#rt');if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const W=["Aspiring AI/ML Engineer","Python Developer","Full-Stack Builder","FastAPI & JavaScript Developer"];let w=0,i=W[0].length,del=true;
-(function tick(){const t=W[w];el.textContent=t.slice(0,i);let d=del?40:80;if(del&&i===0){del=false;w=(w+1)%W.length;d=350}else if(!del&&i===t.length){del=true;d=1900}else i+=del?-1:1;setTimeout(tick,d)})()})();
 /* Card spotlight */
 document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card');if(c){const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')}},{passive:true});
 /* Command palette (Ctrl/Cmd + K) */

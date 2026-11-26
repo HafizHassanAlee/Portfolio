@@ -166,10 +166,27 @@ footer{overflow:hidden;padding-bottom:0}
 .brand .ln .g{background:linear-gradient(90deg,var(--ac),var(--ac3));-webkit-background-clip:text;background-clip:text;color:transparent}
 .brand small{font:500 .62rem var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--mut);transition:color .3s,letter-spacing .3s}
 .brand:hover small{color:var(--ac3);letter-spacing:.2em}
+/* Intro splash */
+html.intro-lock{overflow:hidden}
+@keyframes introFail{to{visibility:hidden}}@keyframes rise{from{opacity:0;transform:translateY(26px)}}@keyframes inl{to{opacity:1}}
+#intro{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;background:#000;color:#eef3ef;transition:transform .85s cubic-bezier(.76,0,.24,1);animation:introFail 0s 8s forwards}
+#intro::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);background-size:48px 48px;-webkit-mask-image:radial-gradient(circle at 50% 50%,#000 15%,transparent 72%);mask-image:radial-gradient(circle at 50% 50%,#000 15%,transparent 72%)}
+#intro::after{content:"";position:absolute;inset:0;background:radial-gradient(520px 340px at 50% 50%,rgba(74,222,128,.14),transparent 70%)}
+#intro.out{transform:translateY(-100%)}
+.in-c{position:relative;z-index:1;width:min(520px,86vw)}
+.in-term{font:400 .85rem/1.9 var(--mono);color:#7f9a8a;min-height:7.6em}.in-term div{opacity:0;animation:inl .35s forwards}.in-term .ok{color:#4ade80}
+.in-name{margin:1.1rem 0 1.4rem;font:800 clamp(2.4rem,9vw,4rem)/1 var(--sans);letter-spacing:-.04em;white-space:nowrap}
+.in-name span{display:inline-block;animation:rise .75s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*55ms + 150ms)}
+.in-bar{height:3px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+.in-bar i{display:block;height:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,#4ade80,#22d3ee)}
+.in-meta{display:flex;justify-content:space-between;margin-top:.75rem;font:500 .74rem var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#7f9a8a}
+#skip{position:absolute;z-index:2;right:1.25rem;top:calc(1.25rem + env(safe-area-inset-top,0px));min-height:36px;padding:0 1rem;border-radius:99px;border:1px solid rgba(255,255,255,.2);background:transparent;color:#cfe3d6;font:500 .78rem var(--mono);cursor:pointer}
+#skip:hover{border-color:#4ade80;color:#4ade80}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
+<div id="intro" aria-label="Loading intro"><div class="in-c"><div class="in-term" id="in-term"></div><div class="in-name" id="in-name">Hassan Ali</div><div class="in-bar" id="in-bar"><i></i></div><div class="in-meta"><span>Aspiring AI/ML Engineer</span><span id="in-pct">0%</span></div></div><button id="skip" type="button">Skip</button></div>
 <canvas id="bg" aria-hidden="true"></canvas>
 <div id="prog" aria-hidden="true"></div>
 <header class="top"><div class="wrap bar">
@@ -349,6 +366,18 @@ tt.onclick=()=>scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: red
 (function(){try{const els=$$('.rv');if(!('IntersectionObserver' in window)||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting||e.boundingClientRect.top<0){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -6% 0px'});
  els.forEach((e,i)=>{e.style.transitionDelay=(i%3)*70+'ms';io.observe(e)});document.documentElement.classList.add('js-r')}catch(e){}})();
+/* Intro splash */
+(function(){const el=$('#intro');if(!el)return;if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.remove();return}
+ const root=document.documentElement;root.classList.add('intro-lock');
+ const nm=$('#in-name'),txt=nm.textContent,A=[74,222,128],B=[34,211,238];
+ nm.innerHTML=[...txt].map((c,i)=>{const k=i/(txt.length-1),col=A.map((v,j)=>Math.round(v+(B[j]-v)*k)).join(',');return `<span style="--i:${i};color:rgb(${col})">${c===' '?'&nbsp;':c}</span>`}).join('');
+ const L=[['$ boot hassan-ali.portfolio',''],['✓ python · fastapi · javascript','ok'],['✓ 8 projects loaded','ok'],['✓ ready','ok']],T=$('#in-term');
+ L.forEach((l,i)=>setTimeout(()=>{const d=document.createElement('div');d.textContent=l[0];if(l[1])d.className=l[1];T.appendChild(d)},250+i*520));
+ const bar=$('#in-bar i'),pct=$('#in-pct');let gone=false;
+ function exit(){if(gone)return;gone=true;el.classList.add('out');setTimeout(()=>{el.remove();root.classList.remove('intro-lock')},900)}
+ const D=2300,t0=performance.now();
+ (function tick(n){if(gone)return;const t=Math.min(1,(n-t0)/D),e=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;bar.style.transform=`scaleX(${e})`;pct.textContent=Math.round(e*100)+'%';if(t<1)requestAnimationFrame(tick);else setTimeout(exit,300)})(t0);
+ el.addEventListener('click',exit);addEventListener('keydown',e=>{if(e.key==='Escape'||e.key==='Enter')exit()})})();
 </script>
 </body>
 </html>

@@ -284,8 +284,8 @@ const P=[
 $('#pg').innerHTML=P.map(p=>`<article class="card proj" data-c="${p.c}"><div class="shot" aria-hidden="true"><pre>${p.s}</pre></div><div class="pb"><h3>${p.n}</h3><p>${p.d}</p><div class="bd">${p.t.map(x=>`<span class="badge">${x}</span>`).join('')}</div><div class="pbtn"><a class="btn" href="${p.r}" target="_blank" rel="noopener noreferrer">GitHub</a>${p.l?`<a class="btn pri" href="${p.l}" target="_blank" rel="noopener noreferrer">Live demo</a>`:''}</div></div></article>`).join('');
 $$('.filters button').forEach(b=>b.onclick=()=>{$$('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));$$('.proj').forEach(p=>{p.hidden=!(b.dataset.f==='all'||p.dataset.c.split(' ').includes(b.dataset.f))})});
 /* Loss-landscape background: slowly shifting contour lines; the cursor digs a "minimum" that ripples outward */
-(function(){const cv=$('#bg'),x=cv.getContext('2d');if(!x)return;const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,dpr=Math.min(devicePixelRatio||1,1.5),M={x:0,y:0,tx:0,ty:0,s:0,on:0},LV=[];for(let i=-6;i<=6;i++)LV.push(i*.3);let W,H,cs,cols,rows,F;
-function init(){W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);cs=W<700?46:34;cols=Math.ceil(W/cs)+2;rows=Math.ceil(H/cs)+2;F=new Float32Array(cols*rows);M.x=M.tx=W*.7;M.y=M.ty=H*.4;if(reduce)draw(0)}
+(function(){const cv=$('#bg'),x=cv.getContext('2d');if(!x)return;const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,dpr=1,M={x:0,y:0,tx:0,ty:0,s:0,on:0},LV=[];for(let i=-4;i<=4;i++)LV.push(i*.4);let W,H,cs,cols,rows,F;
+function init(){W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0);cs=W<700?56:44;cols=Math.ceil(W/cs)+2;rows=Math.ceil(H/cs)+2;F=new Float32Array(cols*rows);M.x=M.tx=W*.7;M.y=M.ty=H*.4;if(reduce)draw(0)}
 function draw(now){const t=reduce?18:now/1000,lt=document.documentElement.dataset.theme==='light';
  M.x+=(M.tx-M.x)*.08;M.y+=(M.ty-M.y)*.08;M.s+=(M.on-M.s)*.05;
  for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){const X=i*cs,Y=j*cs,dx=X-M.x,dy=Y-M.y;
@@ -298,7 +298,7 @@ function draw(now){const t=reduce?18:now/1000,lt=document.documentElement.datase
    const sg=(x1,y1,x2,y2)=>{x.moveTo(x1,y1);x.lineTo(x2,y2)};
    switch(n){case 1:case 14:sg(X,ly,bx,B);break;case 2:case 13:sg(bx,B,R,ry);break;case 3:case 12:sg(X,ly,R,ry);break;case 4:case 11:sg(tx,Y,R,ry);break;case 5:sg(tx,Y,X,ly);sg(bx,B,R,ry);break;case 6:case 9:sg(tx,Y,bx,B);break;case 7:case 8:sg(tx,Y,X,ly);break;case 10:sg(tx,Y,R,ry);sg(X,ly,bx,B);break}}
   x.stroke()}}
-function loop(n){draw(n);requestAnimationFrame(loop)}
+let t0=0;function loop(n){if(n-t0>=33){t0=n;draw(n)}requestAnimationFrame(loop)}
 addEventListener('pointermove',e=>{M.tx=e.clientX;M.ty=e.clientY;M.on=1},{passive:true});document.documentElement.addEventListener('mouseleave',()=>{M.on=0});
 let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(init,150)});init();if(!reduce)requestAnimationFrame(loop)})();
 /* Card spotlight */
@@ -320,10 +320,9 @@ pal.onclick=e=>{if(e.target===pal)pal.close()};
  function line(){const vh=innerHeight,r=tl.getBoundingClientRect(),p=Math.max(0,Math.min(1,(vh*.62-r.top)/r.height));tl.style.setProperty('--h',((r.height-16)*p).toFixed(1)+'px');tl.style.setProperty('--w',(2+6*p).toFixed(2)+'px');li.forEach(l=>l.classList.toggle('hit',l.getBoundingClientRect().top+24<vh*.62))}
  if(reduce){tl.style.setProperty('--h','calc(100% - 16px)');tl.style.setProperty('--w','5px');li.forEach(l=>l.classList.add('hit'));return}
  let busy=false;const go=()=>{if(!busy){busy=true;requestAnimationFrame(()=>{busy=false;line()})}};addEventListener('scroll',go,{passive:true});addEventListener('resize',go);go();
- const pos=e=>{let x=0,y=0;while(e){x+=e.offsetLeft;y+=e.offsetTop;e=e.offsetParent}return[x,y]},done=new WeakSet(),pg=$('#pg');
- function fly(c,n){const[cx,cy]=pos(c),[gx]=pos(pg),dx=gx+pg.offsetWidth/2-(cx+c.offsetWidth/2),dy=scrollY+innerHeight*.5-(cy+c.offsetHeight/2),r=(Math.random()-.5)*36;c.style.opacity=1;
-  c.animate([{translate:`${dx}px ${dy}px`,rotate:`${r}deg`,scale:.7,opacity:0},{translate:`${dx*.3}px ${dy*.3}px`,rotate:`${-r*.6}deg`,scale:1.05,opacity:1,offset:.55},{translate:'0px 0px',rotate:'0deg',scale:1,opacity:1}],{duration:1000,delay:n*130,easing:'cubic-bezier(.22,.9,.3,1.08)',fill:'both'})}
- const io=new IntersectionObserver(es=>{let n=0;es.forEach(en=>{const c=en.target;if(en.isIntersecting){if(done.has(c))return;done.add(c);fly(c,n++)}else if(en.boundingClientRect.top>0&&done.has(c)){done.delete(c);c.getAnimations().forEach(x=>x.cancel());c.style.opacity=0}})},{rootMargin:'0px 0px -12% 0px',threshold:.1});
+ const pos=e=>{let x=0,y=0;while(e){x+=e.offsetLeft;y+=e.offsetTop;e=e.offsetParent}return[x,y]},pg=$('#pg');
+ function fly(c,n){const[cx]=pos(c),[gx]=pos(pg),dx=Math.max(-140,Math.min(140,(gx+pg.offsetWidth/2-(cx+c.offsetWidth/2))*.4)),r=(Math.random()-.5)*18,a=c.animate([{translate:`${dx}px 110px`,rotate:`${r}deg`,scale:.92,opacity:0},{translate:'0px 0px',rotate:'0deg',scale:1,opacity:1}],{duration:900,delay:Math.min(n,4)*90,easing:'cubic-bezier(.16,1,.3,1)',fill:'both'});a.onfinish=()=>{c.style.opacity=1;a.cancel()}}
+ const io=new IntersectionObserver(es=>{let n=0;es.forEach(en=>{if(en.isIntersecting){io.unobserve(en.target);fly(en.target,n++)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});
  cards.forEach(c=>{c.style.opacity=0;io.observe(c)})})();
 /* 3D tilt: only on project cards and the About stat cards */
 if(matchMedia('(hover:hover)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches){$$('.proj,.stat').forEach(el=>{el.classList.add('tilt');

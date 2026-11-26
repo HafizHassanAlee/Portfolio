@@ -156,6 +156,16 @@ footer{overflow:hidden;padding-bottom:0}
 .tl li{z-index:1}
 .tl li::before{border-color:var(--line);transition:border-color .3s,box-shadow .3s}
 .tl li.hit::before{border-color:var(--ac);box-shadow:0 0 0 5px color-mix(in srgb,var(--ac) 20%,transparent)}
+/* Header brand */
+.brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;line-height:1}
+.brand .mark{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;border:1.5px solid transparent;background:linear-gradient(var(--bg2),var(--bg2)) padding-box,linear-gradient(135deg,var(--ac),var(--ac3)) border-box;box-shadow:0 8px 22px -12px color-mix(in srgb,var(--ac) 70%,transparent);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.brand .mark b{font:700 .95rem var(--mono);letter-spacing:-.06em;background:linear-gradient(135deg,var(--ac),var(--ac3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand:hover .mark{transform:rotate(-8deg) scale(1.07)}
+.brand .lt{display:flex;flex-direction:column;gap:.34rem}
+.brand .ln{font:800 1.15rem var(--sans);letter-spacing:-.035em;color:var(--fg)}
+.brand .ln .g{background:linear-gradient(90deg,var(--ac),var(--ac3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand small{font:500 .62rem var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--mut);transition:color .3s,letter-spacing .3s}
+.brand:hover small{color:var(--ac3);letter-spacing:.2em}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -163,7 +173,7 @@ footer{overflow:hidden;padding-bottom:0}
 <canvas id="bg" aria-hidden="true"></canvas>
 <div id="prog" aria-hidden="true"></div>
 <header class="top"><div class="wrap bar">
- <a class="logo" href="#home" aria-label="Hassan Ali, home"><i>H</i>Hassan Ali</a>
+ <a class="brand" href="#home" aria-label="Hassan Ali, home"><span class="mark" aria-hidden="true"><b>HA</b></span><span class="lt" aria-hidden="true"><span class="ln">Hassan <span class="g">Ali</span></span><small>AI · Full-Stack</small></span></a>
  <nav id="nav" aria-label="Main"><ul>
   <li><a class="l" href="#home">Home</a></li><li><a class="l" href="#about">About</a></li><li><a class="l" href="#skills">Skills</a></li><li><a class="l" href="#experience">Experience</a></li>
   <li><a class="l" href="#projects">Projects</a></li><li><a class="l" href="#achievements">Achievements</a></li><li><a class="l" href="#contact">Contact</a></li></ul></nav>

@@ -193,6 +193,11 @@ html.intro-lock{overflow:hidden}
 /* Theme switch: colour fill expands from the button */
 ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
 ::view-transition-old(root){z-index:1}::view-transition-new(root){z-index:2}
+/* Theme-matched selection, caret, scrollbar */
+::selection{background:color-mix(in srgb,var(--ac) 42%,transparent);color:var(--fg);text-shadow:none}
+::-moz-selection{background:color-mix(in srgb,var(--ac) 42%,transparent);color:var(--fg)}
+input,textarea{caret-color:var(--ac)}
+html{scrollbar-color:color-mix(in srgb,var(--ac) 55%,var(--bg)) var(--bg);accent-color:var(--ac);-webkit-tap-highlight-color:color-mix(in srgb,var(--ac) 22%,transparent)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>

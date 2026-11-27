@@ -185,6 +185,14 @@ html.intro-lock{overflow:hidden}
 @property --a{syntax:"<angle>";initial-value:0deg;inherits:false}
 @keyframes spin{to{--a:360deg}}
 .portrait{border:2px solid transparent;background:linear-gradient(160deg,var(--soft),var(--bg2)) padding-box,conic-gradient(from var(--a),var(--ac),var(--ac3),transparent 32%,transparent 68%,var(--ac)) border-box,linear-gradient(var(--line),var(--line)) border-box;animation:spin 9s linear infinite;box-shadow:0 34px 80px -38px color-mix(in srgb,var(--ac) 60%,transparent),var(--sh)}
+/* Portrait backdrop: glowing disc, orbiting rings, rim light */
+@keyframes orbit{to{transform:translate(-50%,-50%) rotate(360deg)}}@keyframes orbitr{to{transform:translate(-50%,-50%) rotate(-360deg)}}@keyframes breathe{50%{transform:translate(-50%,-50%) scale(1.06)}}
+.portrait .orb,.portrait .orbit{position:absolute;left:50%;top:44%;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%)}
+.portrait .orb{width:74%;aspect-ratio:1;background:radial-gradient(circle at 34% 28%,color-mix(in srgb,var(--ac3) 60%,transparent),color-mix(in srgb,var(--ac) 38%,transparent) 52%,transparent 74%);animation:breathe 6s ease-in-out infinite}
+.portrait .orbit{aspect-ratio:1;border:1px dashed color-mix(in srgb,var(--ac) 42%,transparent)}
+.portrait .o1{width:90%;animation:orbit 46s linear infinite}.portrait .o2{width:62%;animation:orbitr 32s linear infinite;border-color:color-mix(in srgb,var(--ac3) 45%,transparent)}
+.portrait .orbit::before{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--ac);box-shadow:0 0 12px var(--ac)}.portrait .o2::before{background:var(--ac3);box-shadow:0 0 12px var(--ac3)}
+.portrait img{position:relative;z-index:2;filter:drop-shadow(0 0 1px rgba(255,255,255,.45)) drop-shadow(0 0 16px color-mix(in srgb,var(--ac) 30%,transparent)) drop-shadow(0 22px 26px rgba(0,0,0,.4))}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -209,7 +217,7 @@ html.intro-lock{overflow:hidden}
   <div class="soc"><a class="btn" href="https://github.com/HafizHassanAlee" target="_blank" rel="noopener noreferrer">GitHub</a><a class="btn" href="https://www.linkedin.com/in/hassan-alee/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
  </div>
  <div class="hvis">
-  <figure class="portrait"><img src="hassan-removebg-preview.png" width="500" height="500" alt="Portrait of Muhammad Hassan Ali" onerror="this.parentElement.classList.add('noimg')"></figure>
+  <figure class="portrait"><span class="orb" aria-hidden="true"></span><span class="orbit o1" aria-hidden="true"></span><span class="orbit o2" aria-hidden="true"></span><img src="hassan-removebg-preview.png" width="500" height="500" alt="Portrait of Muhammad Hassan Ali" onerror="this.parentElement.classList.add('noimg')"></figure>
   <span class="chip c1"><b></b>Python</span><span class="chip c2"><b></b>FastAPI</span><span class="chip c3"><b></b>AI / ML</span>
  </div>
 </div></section>

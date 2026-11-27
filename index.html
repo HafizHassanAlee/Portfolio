@@ -181,6 +181,10 @@ html.intro-lock{overflow:hidden}
 .in-sub{margin-top:1rem;text-indent:.42em;font:500 clamp(.7rem,2.2vw,.85rem) var(--mono);text-transform:uppercase;letter-spacing:.42em;color:#8fa89a;animation:track 1.3s cubic-bezier(.2,.8,.2,1) 1s both}
 .in-bar{position:relative;width:min(240px,62vw);height:2px;margin:2.6rem auto 0;border-radius:99px;background:rgba(255,255,255,.1);animation:fade .6s .5s both}
 .in-bar i{position:absolute;inset:0;border-radius:inherit;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,#4ade80,#22d3ee);box-shadow:0 0 14px rgba(74,222,128,.7)}
+/* Hero portrait: sweeping gradient ring, glow, flip on hover */
+@property --a{syntax:"<angle>";initial-value:0deg;inherits:false}
+@keyframes spin{to{--a:360deg}}
+.portrait{border:2px solid transparent;background:linear-gradient(160deg,var(--soft),var(--bg2)) padding-box,conic-gradient(from var(--a),var(--ac),var(--ac3),transparent 32%,transparent 68%,var(--ac)) border-box,linear-gradient(var(--line),var(--line)) border-box;animation:spin 9s linear infinite;box-shadow:0 34px 80px -38px color-mix(in srgb,var(--ac) 60%,transparent),var(--sh)}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
 </head>
@@ -327,6 +331,10 @@ function draw(now){const t=reduce?18:now/1000,lt=document.documentElement.datase
 let t0=0;function loop(n){if(n-t0>=33){t0=n;draw(n)}requestAnimationFrame(loop)}
 addEventListener('pointermove',e=>{M.tx=e.clientX;M.ty=e.clientY;M.on=1},{passive:true});document.documentElement.addEventListener('mouseleave',()=>{M.on=0});
 let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(init,150)});init();if(!reduce)requestAnimationFrame(loop)})();
+/* Hero portrait: 360° flip on hover / tap */
+(function(){const p=$('.portrait');if(!p||matchMedia('(prefers-reduced-motion: reduce)').matches)return;let busy=false;
+ const flip=()=>{if(busy)return;busy=true;p.animate([{transform:'perspective(900px) rotateY(0deg) scale(1)'},{transform:'perspective(900px) rotateY(180deg) scale(1.07)',offset:.5},{transform:'perspective(900px) rotateY(360deg) scale(1)'}],{duration:1100,easing:'cubic-bezier(.45,.05,.25,1)'}).onfinish=()=>{busy=false}};
+ p.addEventListener('pointerenter',flip);p.addEventListener('click',flip)})();
 /* Card spotlight */
 document.addEventListener('pointermove',e=>{const c=e.target.closest&&e.target.closest('.card');if(c){const r=c.getBoundingClientRect();c.style.setProperty('--mx',e.clientX-r.left+'px');c.style.setProperty('--my',e.clientY-r.top+'px')}},{passive:true});
 /* Command palette (Ctrl/Cmd + K) */
